@@ -1,24 +1,37 @@
 import React, { Fragment } from "react";
-import Pup from "../assets/images/pup.jpg";
 import Button from "./UI/Button";
 
 const Card = props => {
+  let chooseButton = props.btnContent ? (
+    <div className="extra content">
+      <Button btnClass={`${props.btnClass}`} clicked={props.viewPet}>
+        {props.btnContent}
+      </Button>
+    </div>
+  ) : null;
+
+  let description = props.description ? (
+    <div class="description">{props.description}</div>
+  ) : null;
+
+  let age = props.age ? (
+    <div class="meta">
+      <span class="date">{props.age} months old</span>
+    </div>
+  ) : null;
+
   return (
     <Fragment>
       <div class="ui card">
         <div class="image">
-          <img src={Pup} alt="pup" />
+          <img src={props.imgsrc} alt="pup" />
         </div>
         <div class="content">
           <a className="header">{props.name}</a>
-          <div class="meta">
-            <span class="date">{props.age} months old</span>
-          </div>
-          <div class="description">{props.description}</div>
+          {age}
+          {description}
         </div>
-        <div className="extra content">
-          <Button>Choose Me!</Button>
-        </div>
+        {chooseButton}
       </div>
     </Fragment>
   );

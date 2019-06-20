@@ -1,7 +1,7 @@
-import React from "react";
+import React, { useState } from "react";
 
 const Button = props => (
-  <button className="ui inverted blue button" onClick={props.clicked}>
+  <button className={`${props.btnclass}`} onClick={props.clicked}>
     {props.children}
   </button>
 );

@@ -3,9 +3,9 @@ import Layout from "../src/components/layout/Layout";
 import { Route } from "react-router-dom";
 
 import LandingPage from "../src/components/pages/Landing";
-import AdoptionCenter from "./components/pages/AdoptionCenter";
+import AdoptionCenter from "./components/Containers/AdoptionCenter/AdoptionCenter";
 import MyPets from "./components/pages/MyPets";
-import PetShop from "./components/pages/PetShop";
+import PetShop from "./components/Containers/PetShop/PetShop";
 import InventoryPage from "./components/pages/InventoryPage";
 
 const App = () => {
