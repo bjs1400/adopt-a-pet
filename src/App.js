@@ -2,11 +2,11 @@ import React from "react";
 import Layout from "../src/components/layout/Layout";
 import { Route } from "react-router-dom";
 
-import LandingPage from "../src/components/pages/Landing";
+import LandingPage from "../src/components/Containers/Landing";
 import AdoptionCenter from "./components/Containers/AdoptionCenter/AdoptionCenter";
-import MyPets from "./components/pages/MyPets";
+import MyPets from "./components/Containers/MyPets";
 import PetShop from "./components/Containers/PetShop/PetShop";
-import InventoryPage from "./components/pages/InventoryPage";
+import InventoryPage from "./components/Containers/InventoryPage";
 
 const App = () => {
   return (

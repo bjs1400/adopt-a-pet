@@ -85,13 +85,13 @@ class ShowPet extends Component {
           </div>
           <div className="buttons">
             <Button
-              btnclass="big ui green button"
+              btnClass="big ui green button"
               clicked={this.props.adoptContinue}
             >
               ADOPT
             </Button>
             <Button
-              btnclass="big ui inverted red button"
+              btnClass="big ui inverted red button"
               clicked={this.props.hidePet}
             >
               CANCEL

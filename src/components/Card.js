@@ -4,7 +4,7 @@ import Button from "./UI/Button";
 const Card = props => {
   let chooseButton = props.btnContent ? (
     <div className="extra content">
-      <Button btnClass={`${props.btnClass}`} clicked={props.viewPet}>
+      <Button btnClass={`${props.btnClass}`} clicked={props.btnClicked}>
         {props.btnContent}
       </Button>
     </div>

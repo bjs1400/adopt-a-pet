@@ -84,7 +84,7 @@ class AdoptionCenter extends Component {
             btnContent="Choose Me!"
             btnClass="ui button primary"
             imgsrc={Pup}
-            viewPet={() => this.viewPet(pet.id)}
+            btnClicked={() => this.viewPet(pet.id)}
             name={pet.name}
             age={pet.age}
             description={pet.description}

@@ -195,3 +195,12 @@ LANDING PAGE
   width: 70%;
   height: 80%;
 }
+
+.show-item-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+.item-description-box {
+  
+}
