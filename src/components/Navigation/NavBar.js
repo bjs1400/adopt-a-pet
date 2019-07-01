@@ -8,7 +8,17 @@ class Navbar extends Component {
         <NavItem link="/adopt">Adopt</NavItem>
         <NavItem link="/my-pets">My Pets</NavItem>
         <NavItem link="/pet-shop">Pet Shop</NavItem>
-        <NavItem link="/inventory">Tokens: 1000</NavItem>
+        <NavItem link="/earn-tokens">Earn Tokens</NavItem>
+        <NavItem link="/inventory">
+          <span
+            style={{
+              color: "gold",
+              fontWeight: "lighter"
+            }}
+          >
+            Tokens: 1000
+          </span>
+        </NavItem>
         <NavItem link="/">Sign Out</NavItem>
       </ul>
     );

@@ -127,7 +127,7 @@ LANDING PAGE
 
 .adoption-grid {
   display: grid;
-  grid-template-columns: 70% 30%;
+  grid-template-columns: 75% 25%;
   grid-column-gap: 3%;
   grid-row-gap: 3%;
   height: 200px;
@@ -144,7 +144,7 @@ LANDING PAGE
   padding: 2%;
 }
 .pet-square {
-  width: 60%;
+  width: 80%;
   height: auto;
 }
 
@@ -199,8 +199,131 @@ LANDING PAGE
 .show-item-container {
   display: grid;
   grid-template-columns: 1fr 1fr;
+  grid-template-rows: 5fr 1fr;
 }
 
 .item-description-box {
-  
+  display: grid;
+  grid-template-rows: 5fr 1fr;
+  padding: 0;
+}
+
+.item-main-content {
+  grid-row: 1 6;
+}
+
+.item-cost-box {
+  grid-row: 6 7;
+  text-align: right;
+  font-size: 45px;
+}
+
+/***************
+*** MY PETS
+**************/
+
+.my-pets-container {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: 1fr 1fr;
+  grid-row-gap: 5%;
+  grid-column-gap: 5%;
+}
+
+.inventory-box-my-pets {
+  grid-column-start: 2;
+  grid-column-end: 4;
+  background-color: grey;
+}
+
+.quote-box {
+  background-color: lightblue;
+  grid-column: 3 / 4;
+  grid-row: 1 / 2;
+  padding: 5%;
+  text-align: center;
+}
+
+/* PET BOX */
+
+.my-pet-box {
+  display: flex;
+}
+.my-pet-box .left-side:first-child {
+  width: 60%;
+  padding-right: 5%;
+}
+
+.feed-play {
+  display: flex;
+  justify-content: space-evenly;
+}
+
+/* */
+.container-mui {
+  padding: 2%;
+  display: flex;
+  flex-direction: column;
+}
+
+.container-mui .inputField {
+  margin-bottom: 5%;
+  width: 80%;
+}
+
+.buttonContainer {
+  display: flex;
+}
+
+.adoption-btn {
+  width: 80%;
+}
+
+/***************
+*** EARN TOKENS
+**************/
+.games-container {
+  padding: 2%;
+  width: 90%;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-column-gap: 6%;
+  height: 1000px;
+  width: 100%;
+}
+
+.games-card {
+  width: 100%;
+  height: 200px;
+  background-color: grey;
+  border: 5px solid black;
+  border-radius: 10px;
+  position: relative;
+  box-shadow: 1% 2% rgba(0, 0, 0, 0.8);
+  text-align: center;
+}
+
+.games-card:after {
+  border: 3px solid black;
+  border-radius: 5%;
+  width: 60%;
+  background-color: white;
+  padding: 4%;
+  content: "TIC TAC TOE";
+  text-align: center;
+  height: 26%;
+  position: absolute;
+  top: 85%;
+  left: -8%;
+}
+
+.games-card:hover {
+  transition: all 0.35s;
+  transform: scale(1.2);
+  cursor: pointer;
+  border: 3px solid black;
+  box-shadow: 3% 4% rgba(0, 0, 0, 0.8);
+}
+.games-card:hover::after {
+  display: none;
 }

@@ -14,28 +14,28 @@ class PetShop extends Component {
         cost: 80,
         type: "toy",
         description:
-          "your pup will love this cute toy. i can deal with the bad nights when I'm"
+          "your pup will love this cute toy. i can deal with the bad nights when im with my baby yeah lorem ipsum dolar when im with my baby yeah I'm"
       },
       {
         name: "Bouncy Ball",
         cost: 60,
         type: "toy",
         description:
-          "your pup will love this cute toy. i can deal with the bad nights when"
+          "your pup will love this cute toy. i can deal with the bad nights when im with my baby yeah lorem ipsum dolar when im with my baby yeah"
       },
       {
         name: "Pacifier",
         cost: 100,
         type: "toy",
         description:
-          "your pup will love this cute toy. i can deal with the bad nights when"
+          "your pup will love this cute toy. i can deal with the bad nights when im with my baby yeah lorem ipsum dolar when im with my baby yeah"
       },
       {
         name: "Lollipop",
         cost: 40,
         type: "food",
         description:
-          "your pup will love this cute toy. i can deal with the bad nights when"
+          "your pup will love this cute toy. i can deal with the bad nights when im with my baby yeah lorem ipsum dolar when im with my baby yeah"
       },
       {
         name: "Brocolli",
@@ -88,6 +88,8 @@ class PetShop extends Component {
           />
         </Modal>
         <h1>PET SHOP</h1>
+        Welcome to the Pet Shop! Here, you can buy toys and food for your pet to
+        keep them happy!
         <div className="shop-container">{itemsForSale}</div>
       </>
     );

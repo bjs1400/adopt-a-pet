@@ -4,21 +4,23 @@ import { Fragment } from "react";
 import Card from "../../Card";
 import Modal from "../../UI/Modal/Modal";
 import ShowPet from "./ShowPet";
+import AdoptionForm from "./AdoptionForm/AdoptionForm";
 import Pup from "../../../assets/images/pup.jpg";
 
 class AdoptionCenter extends Component {
   state = {
     show: false,
     shownPetId: null, // id property
+    showAdoptionForm: false,
     pets: [
       {
-        name: "Bridgette",
+        name: "Brittany",
         age: 11,
         description: "this pup is so cute, it couldnt possible be real",
         id: 1
       },
       {
-        name: "Cory",
+        name: "Rocky",
         age: 8,
         description:
           "youll fall in love with sweet pup right away, but dont let his charming cute looks deceive you -- treat him wrong and hell make you pay!",
@@ -46,14 +48,14 @@ class AdoptionCenter extends Component {
         id: 5
       },
       {
-        name: "Jeffrey",
+        name: "Socksamus",
         age: 3,
         description:
           "this sweet pup is brand new -- just born and cute as can be. Will you make him yours?",
         id: 6
       },
       {
-        name: "Jason",
+        name: "Bella Rose",
         age: 6,
         description:
           "play with Jason all day, and youll have loads of fun -- plus he loves treats!",
@@ -64,15 +66,18 @@ class AdoptionCenter extends Component {
 
   cancelHandler = () => {
     this.setState({
-      show: false
+      show: false,
+      showAdoptionForm: false
     });
   };
   viewPet = id => {
-    this.setState({ show: true }); // show our modal
-    this.setState({ shownPetId: id });
+    this.setState({ show: true, shownPetId: id, showAdoptionForm: false }); // show our modal
   };
   adoptContinue = id => {
-    alert("You purchased pet: " + id);
+    this.setState({
+      showAdoptionForm: true,
+      show: false
+    });
   };
 
   render() {
@@ -80,7 +85,7 @@ class AdoptionCenter extends Component {
       return (
         <div className="pet-square">
           <Card
-            key={pet.id}
+            key={pet.id.toString()}
             btnContent="Choose Me!"
             btnClass="ui button primary"
             imgsrc={Pup}
@@ -103,6 +108,12 @@ class AdoptionCenter extends Component {
             hidePet={this.cancelHandler}
             id={this.state.shownPetId}
           />
+        </Modal>
+        <Modal
+          show={this.state.showAdoptionForm}
+          modalClosed={this.cancelHandler}
+        >
+          <AdoptionForm petId={this.state.shownPetId} />
         </Modal>
         <span className="adoption-span">
           <Link to="/signup">
