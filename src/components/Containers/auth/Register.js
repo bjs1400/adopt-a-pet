@@ -1,22 +1,35 @@
 import React, { Component } from "react";
+import { Redirect } from "react-router-dom";
+import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import FormControl from "@material-ui/core/FormControl";
 import InputLabel from "@material-ui/core/InputLabel";
 import Input from "@material-ui/core/Input";
 import Button from "../../UI/Button";
 
+import * as actions from "../../../store/actions/index";
+
 class Register extends Component {
   state = {
     email: "",
-    password: ""
+    emailValid: false,
+    emailTouched: false,
+    password: "",
+    passwordValid: false,
+    passwordTouched: false
   };
+
+  checkValidity = () => {};
 
   handleClick = e => {
     e.preventDefault();
     console.log("Button Clicked");
     console.log(this.state.email);
     console.log(this.state.password);
+    this.props.onSignUp(this.state.email, this.state.password);
+    console.log(this.props.result);
   };
+  currentUser;
 
   handleChange = input => e => {
     this.setState({
@@ -26,18 +39,26 @@ class Register extends Component {
 
   render() {
     const { email, password } = this.state;
+    var message = this.props.message ? this.props.message : null;
+
+    let authRedirect = null;
+    if (this.props.currentUser) {
+      authRedirect = <Redirect to="/my-pets" />;
+    }
 
     return (
       <div className="column">
+        {authRedirect}
         <h2>
           Register to Adopt-A-Pet to begin Adopting, Earning Tokens, Playing
           Games, and More!
         </h2>
+        <h1>{message}</h1>
         <form className="ui large form">
           <div className="ui stacked segment">
             <div className="field">
+              <InputLabel htmlFor="email">Email</InputLabel>
               <FormControl className="inputField">
-                <InputLabel htmlFor="email">Email</InputLabel>
                 <Input
                   defaultValue="Email"
                   id="email"
@@ -71,4 +92,22 @@ class Register extends Component {
   }
 }
 
-export default Register;
+const mapDispatchToProps = dispatch => {
+  return {
+    onSignUp: (email, password) => dispatch(actions.auth(email, password))
+  };
+};
+
+const mapStateToProps = state => {
+  return {
+    message: state.auth.message,
+    errorMsg: state.auth.error,
+    result: state.auth.result,
+    currentUser: state.auth.currentUser
+  };
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Register);
