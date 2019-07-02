@@ -1,9 +1,14 @@
 import React, { Component } from "react";
-import { Link } from "react-router-dom";
+import { connect } from "react-redux";
+import { Redirect, Link } from "react-router-dom";
 import FormControl from "@material-ui/core/FormControl";
 import InputLabel from "@material-ui/core/InputLabel";
 import Input from "@material-ui/core/Input";
 import Button from "../../UI/Button";
+import Modal from "../../UI/Modal/Modal";
+import Spinner from "../../UI/Spinner/Spinner";
+
+import * as actions from "../../../store/actions/index";
 
 class Login extends Component {
   state = {
@@ -13,9 +18,8 @@ class Login extends Component {
 
   handleClick = e => {
     e.preventDefault();
-    console.log("Button Clicked");
-    console.log(this.state.email);
-    console.log(this.state.password);
+    this.props.onLogIn(this.state.email, this.state.password);
+    console.log(this.props.errorMessage);
   };
 
   handleChange = input => e => {
@@ -27,8 +31,14 @@ class Login extends Component {
   render() {
     const { email, password } = this.state;
 
+    let isAuth = this.props.currentUser ? <Redirect to="/home" /> : null;
+
     return (
       <div className="column">
+        {isAuth}
+        <Modal show={this.props.loading}>
+          <Spinner />
+        </Modal>
         <h2>
           Log into Adopt-A-Pet to Access Your Pets, Adopt, Earn Tokens, and
           More!
@@ -61,7 +71,9 @@ class Login extends Component {
               Login
             </Button>
           </div>
-          <div className="ui error message">Message</div>
+          <div className="ui error message" style={{ display: "block" }}>
+            {this.props.errorMessage ? this.props.errorMessage : null}
+          </div>
         </form>
         <div className="ui message">
           New to us? <Link to="/signup">Sign Up</Link>
@@ -71,4 +83,21 @@ class Login extends Component {
   }
 }
 
-export default Login;
+const mapDispatchToProps = dispatch => {
+  return {
+    onLogIn: (email, password) => dispatch(actions.signIn(email, password))
+  };
+};
+
+const mapStateToProps = state => {
+  return {
+    errorMessage: state.auth.errorMessage,
+    currentUser: state.auth.currentUser,
+    loading: state.auth.loading
+  };
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Login);

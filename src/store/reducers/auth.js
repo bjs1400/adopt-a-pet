@@ -1,27 +1,40 @@
 const initialState = {
   token: null,
   userId: null,
-  error: null,
   loading: false,
-  message: "",
+  errorMessage: "",
   result: "",
-  currentUser: null
+  currentUser: null,
+  loading: false
 };
 
 const authReducer = (state = initialState, action) => {
   switch (action.type) {
+    case "AUTH_START":
+      return {
+        ...state,
+        loading: true,
+        currentUser: null
+      };
     case "AUTH_SUCCESS":
       return {
         ...state,
-        message: "SUCCESS",
         result: action.result,
-        currentUser: action.currentUser
+        currentUser: action.currentUser,
+        loading: false
       };
     case "AUTH_FAIL":
       return {
         ...state,
-        message: "FAIL",
-        error: action.error
+        errorMessage: action.errorMessage,
+        error: action.error,
+        loading: false,
+        currentUser: null
+      };
+    case "AUTH_LOGOUT":
+      return {
+        ...state,
+        currentUser: null
       };
     default:
       return state;

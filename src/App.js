@@ -10,6 +10,7 @@ import InventoryPage from "./components/Containers/InventoryPage";
 import Login from "./components/Containers/auth/Login";
 import Register from "./components/Containers/auth/Register";
 import EarnTokens from "./components/Containers/EarnTokens/EarnTokens";
+import HomePage from "./components/Containers/HomePage";
 
 const App = () => {
   return (
@@ -23,6 +24,7 @@ const App = () => {
         <Route path="/login" component={Login} />
         <Route path="/signup" component={Register} />
         <Route path="/earn-tokens" component={EarnTokens} />
+        <Route path="/home" component={HomePage} />
       </Layout>
     </div>
   );

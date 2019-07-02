@@ -6,6 +6,8 @@ import FormControl from "@material-ui/core/FormControl";
 import InputLabel from "@material-ui/core/InputLabel";
 import Input from "@material-ui/core/Input";
 import Button from "../../UI/Button";
+import Modal from "../../UI/Modal/Modal";
+import Spinner from "../../UI/Spinner/Spinner";
 
 import * as actions from "../../../store/actions/index";
 
@@ -23,13 +25,8 @@ class Register extends Component {
 
   handleClick = e => {
     e.preventDefault();
-    console.log("Button Clicked");
-    console.log(this.state.email);
-    console.log(this.state.password);
     this.props.onSignUp(this.state.email, this.state.password);
-    console.log(this.props.result);
   };
-  currentUser;
 
   handleChange = input => e => {
     this.setState({
@@ -39,21 +36,22 @@ class Register extends Component {
 
   render() {
     const { email, password } = this.state;
-    var message = this.props.message ? this.props.message : null;
 
     let authRedirect = null;
     if (this.props.currentUser) {
-      authRedirect = <Redirect to="/my-pets" />;
+      authRedirect = <Redirect to="/home" />;
     }
 
     return (
       <div className="column">
+        <Modal show={this.props.loading}>
+          <Spinner />
+        </Modal>
         {authRedirect}
         <h2>
           Register to Adopt-A-Pet to begin Adopting, Earning Tokens, Playing
           Games, and More!
         </h2>
-        <h1>{message}</h1>
         <form className="ui large form">
           <div className="ui stacked segment">
             <div className="field">
@@ -103,7 +101,8 @@ const mapStateToProps = state => {
     message: state.auth.message,
     errorMsg: state.auth.error,
     result: state.auth.result,
-    currentUser: state.auth.currentUser
+    currentUser: state.auth.currentUser != null,
+    loading: state.auth.loading
   };
 };
 

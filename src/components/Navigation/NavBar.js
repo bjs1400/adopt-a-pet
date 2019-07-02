@@ -1,7 +1,14 @@
 import React, { Component } from "react";
+import { connect } from "react-redux";
 import NavItem from "./NavItem";
 
+import * as actions from "../../store/actions/index";
+
 class Navbar extends Component {
+  handleSignOut = () => {
+    this.props.onLogout();
+  };
+
   render() {
     let navlist = (
       <ul className="navbar-main">
@@ -19,11 +26,22 @@ class Navbar extends Component {
             Tokens: 1000
           </span>
         </NavItem>
-        <NavItem link="/">Sign Out</NavItem>
+        <NavItem clicked={this.handleSignOut} link="/">
+          Sign Out
+        </NavItem>
       </ul>
     );
     return navlist;
   }
 }
 
-export default Navbar;
+const mapDispatchToProps = dispatch => {
+  return {
+    onLogout: () => dispatch(actions.logout())
+  };
+};
+
+export default connect(
+  null,
+  mapDispatchToProps
+)(Navbar);
