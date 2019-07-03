@@ -19,10 +19,10 @@ export const authSuccess = user => {
   };
 };
 
-export const authFail = err => {
+export const authFail = errorMessage => {
   return {
     type: "AUTH_FAIL",
-    errorMessage: err.message
+    errorMessage: errorMessage
   };
 };
 
@@ -38,7 +38,13 @@ export const auth = (email, password) => {
         dispatch(authSuccess(res.user));
       })
       .catch(err => {
-        dispatch(authFail(err));
+        if (err.code === "auth/email-already-in-use") {
+          dispatch(authFail("User already exists. Please sign in."));
+        } else if (err.code === "auth/invalid-email") {
+          dispatch(authFail("Please enter a valid email"));
+        } else if (err.code === "auth/weak-password") {
+          dispatch(authFail("Please choose a stronger password"));
+        }
       });
   };
 };
@@ -53,7 +59,13 @@ export const signIn = (email, password) => {
         dispatch(authSuccess(res.user));
       })
       .catch(err => {
-        dispatch(authFail(err.message));
+        if (err.code === "auth/wrong-password") {
+          dispatch(authFail("Incorrect Password"));
+        } else if (err.code === "auth/user-not-found") {
+          dispatch(authFail("User not found. Please sign up."));
+        } else if (err.code === "auth/invalid-email") {
+          dispatch(authFail("Please enter a valid email"));
+        }
       });
   };
 };

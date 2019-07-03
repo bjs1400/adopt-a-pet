@@ -32,6 +32,9 @@ class Login extends Component {
     const { email, password } = this.state;
 
     let isAuth = this.props.currentUser ? <Redirect to="/home" /> : null;
+    let showError = {
+      display: "block"
+    };
 
     return (
       <div className="column">
@@ -71,7 +74,10 @@ class Login extends Component {
               Login
             </Button>
           </div>
-          <div className="ui error message" style={{ display: "block" }}>
+          <div
+            className="ui error message"
+            style={this.props.errorMessage ? showError : null}
+          >
             {this.props.errorMessage ? this.props.errorMessage : null}
           </div>
         </form>

@@ -42,6 +42,10 @@ class Register extends Component {
       authRedirect = <Redirect to="/home" />;
     }
 
+    let showError = {
+      display: "block"
+    };
+
     return (
       <div className="column">
         <Modal show={this.props.loading}>
@@ -80,7 +84,12 @@ class Register extends Component {
               Register
             </Button>
           </div>
-          <div className="ui error message">Message</div>
+          <div
+            className="ui error message"
+            style={this.props.errorMessage ? showError : null}
+          >
+            {this.props.errorMessage}
+          </div>
         </form>
         <div className="ui message">
           Already have an account? <Link to="/login">Log In</Link>
@@ -98,9 +107,7 @@ const mapDispatchToProps = dispatch => {
 
 const mapStateToProps = state => {
   return {
-    message: state.auth.message,
-    errorMsg: state.auth.error,
-    result: state.auth.result,
+    errorMessage: state.auth.errorMessage,
     currentUser: state.auth.currentUser != null,
     loading: state.auth.loading
   };
