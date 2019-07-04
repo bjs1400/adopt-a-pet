@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import { Fragment } from "react";
+import { connect } from "react-redux";
 import Card from "../../Card";
 import Modal from "../../UI/Modal/Modal";
 import ShowPet from "./ShowPet";
@@ -97,6 +98,18 @@ class AdoptionCenter extends Component {
         </div>
       );
     });
+
+    let heading = !this.props.isAuthenticated ? (
+      <>
+        <Link to="/signup">
+          <h1>SIGN UP</h1>
+        </Link>
+        <h2>to begin adopting</h2>
+      </>
+    ) : (
+      <h1>CHOOSE A LOVING PET TO TAKE HOME TODAY!</h1>
+    );
+
     return (
       // ** FOR NOW WE PASS IN OUR PET LIST TO SHOWPET, BUT LATER WE WONT NEED TO BC WE'LL USE REDUX for pets list
       <Fragment>
@@ -115,12 +128,7 @@ class AdoptionCenter extends Component {
         >
           <AdoptionForm petId={this.state.shownPetId} />
         </Modal>
-        <span className="adoption-span">
-          <Link to="/signup">
-            <h1>SIGN UP</h1>
-          </Link>
-          to begin adopting
-        </span>
+        {heading}
         <div className="adoption-grid">
           <div className="pet-container">{cardList}</div>
           <div className="filter-container" />
@@ -130,4 +138,10 @@ class AdoptionCenter extends Component {
   }
 }
 
-export default AdoptionCenter;
+const mapStateToProps = state => {
+  return {
+    isAuthenticated: state.auth.isAuthenticated
+  };
+};
+
+export default connect(mapStateToProps)(AdoptionCenter);

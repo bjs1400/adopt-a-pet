@@ -88,7 +88,7 @@ class Register extends Component {
             className="ui error message"
             style={this.props.errorMessage ? showError : null}
           >
-            {this.props.errorMessage}
+            {this.props.errorMecheckAuthState}
           </div>
         </form>
         <div className="ui message">

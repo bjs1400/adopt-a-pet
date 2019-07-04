@@ -10,6 +10,8 @@ class Navbar extends Component {
   };
 
   render() {
+    let direction = this.props.isAuthenticated ? "SIGN OUT" : "SIGN IN";
+    let link = this.props.isAuthenticated ? "/" : "/login";
     let navlist = (
       <ul className="navbar-main">
         <NavItem link="/adopt">Adopt</NavItem>
@@ -26,8 +28,8 @@ class Navbar extends Component {
             Tokens: 1000
           </span>
         </NavItem>
-        <NavItem clicked={this.handleSignOut} link="/">
-          Sign Out
+        <NavItem clicked={this.handleSignOut} link={link}>
+          {direction}
         </NavItem>
       </ul>
     );
@@ -41,7 +43,13 @@ const mapDispatchToProps = dispatch => {
   };
 };
 
+const mapStateToProps = state => {
+  return {
+    isAuthenticated: state.auth.isAuthenticated
+  };
+};
+
 export default connect(
-  null,
+  mapStateToProps,
   mapDispatchToProps
 )(Navbar);

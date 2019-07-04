@@ -31,7 +31,7 @@ class HomePage extends Component {
 
 const mapStateToProps = state => {
   return {
-    isAuthenticated: state.auth.currentUser != null,
+    isAuthenticated: state.auth.isAuthenticated,
     currentUser: state.auth.currentUser
   };
 };

@@ -87,5 +87,13 @@ export const logout = () => {
 };
 
 export const checkAuthState = () => {
-  return {};
+  return dispatch => {
+    firebase.auth().onAuthStateChanged(user => {
+      if (user) {
+        dispatch(authSuccess(user));
+      } else {
+        dispatch(authFail());
+      }
+    });
+  };
 };

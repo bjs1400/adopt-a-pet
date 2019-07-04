@@ -5,7 +5,8 @@ const initialState = {
   errorMessage: "",
   result: "",
   currentUser: null,
-  loading: false
+  loading: false,
+  isAuthenticated: false
 };
 
 const authReducer = (state = initialState, action) => {
@@ -19,16 +20,17 @@ const authReducer = (state = initialState, action) => {
     case "AUTH_SUCCESS":
       return {
         ...state,
-        result: action.result,
         currentUser: action.currentUser,
-        loading: false
+        loading: false,
+        isAuthenticated: true
       };
     case "AUTH_FAIL":
       return {
         ...state,
         errorMessage: action.errorMessage,
         loading: false,
-        currentUser: null
+        currentUser: null,
+        isAuthenticated: false
       };
     case "AUTH_LOGOUT":
       return {
