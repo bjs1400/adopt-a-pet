@@ -2,11 +2,12 @@ const initialState = {
   token: null,
   userId: null,
   loading: false,
-  errorMessage: "",
+  errorMessage: null,
   result: "",
   currentUser: null,
   loading: false,
-  isAuthenticated: false
+  isAuthenticated: false,
+  authRedirectPath: "/"
 };
 
 const authReducer = (state = initialState, action) => {
@@ -15,14 +16,16 @@ const authReducer = (state = initialState, action) => {
       return {
         ...state,
         loading: true,
-        currentUser: null
+        currentUser: null,
+        errorMessage: null
       };
     case "AUTH_SUCCESS":
       return {
         ...state,
         currentUser: action.currentUser,
         loading: false,
-        isAuthenticated: true
+        isAuthenticated: true,
+        errorMessage: null
       };
     case "AUTH_FAIL":
       return {
@@ -35,7 +38,13 @@ const authReducer = (state = initialState, action) => {
     case "AUTH_LOGOUT":
       return {
         ...state,
-        currentUser: null
+        currentUser: null,
+        errorMessage: null
+      };
+    case "CLEAR_ERROR":
+      return {
+        ...state,
+        errorMessage: null
       };
     default:
       return state;

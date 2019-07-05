@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { Redirect, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 import FormControl from "@material-ui/core/FormControl";
 import InputLabel from "@material-ui/core/InputLabel";
 import Input from "@material-ui/core/Input";
@@ -11,6 +11,10 @@ import Spinner from "../../UI/Spinner/Spinner";
 import * as actions from "../../../store/actions/index";
 
 class Login extends Component {
+  componentDidMount() {
+    this.props.checkAuthState();
+  }
+
   state = {
     email: "",
     password: ""
@@ -31,14 +35,12 @@ class Login extends Component {
   render() {
     const { email, password } = this.state;
 
-    let isAuth = this.props.currentUser ? <Redirect to="/home" /> : null;
     let showError = {
       display: "block"
     };
 
     return (
       <div className="column">
-        {isAuth}
         <Modal show={this.props.loading}>
           <Spinner />
         </Modal>
@@ -91,7 +93,8 @@ class Login extends Component {
 
 const mapDispatchToProps = dispatch => {
   return {
-    onLogIn: (email, password) => dispatch(actions.signIn(email, password))
+    onLogIn: (email, password) => dispatch(actions.signIn(email, password)),
+    checkAuthState: () => dispatch(actions.checkAuthState())
   };
 };
 

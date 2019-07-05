@@ -1,4 +1,5 @@
 import firebase from "../../config/firebaseConfig";
+import history from "../../history";
 
 // export const authStart = () => {
 //   return {
@@ -57,6 +58,7 @@ export const signIn = (email, password) => {
       .signInWithEmailAndPassword(email, password)
       .then(res => {
         dispatch(authSuccess(res.user));
+        history.push("/home");
       })
       .catch(err => {
         if (err.code === "auth/wrong-password") {
@@ -81,13 +83,23 @@ export const logout = () => {
     firebase
       .auth()
       .signOut()
-      .then(() => dispatch(authLogout()))
+      .then(() => {
+        dispatch(authLogout());
+        history.push("/");
+      })
       .catch(err => console.log(err));
+  };
+};
+
+export const clearErrorMessage = () => {
+  return {
+    type: "CLEAR_ERROR"
   };
 };
 
 export const checkAuthState = () => {
   return dispatch => {
+    dispatch(clearErrorMessage());
     firebase.auth().onAuthStateChanged(user => {
       if (user) {
         dispatch(authSuccess(user));

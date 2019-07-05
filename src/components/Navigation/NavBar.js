@@ -11,7 +11,6 @@ class Navbar extends Component {
 
   render() {
     let direction = this.props.isAuthenticated ? "SIGN OUT" : "SIGN IN";
-    let link = this.props.isAuthenticated ? "/" : "/login";
     let navlist = (
       <ul className="navbar-main">
         <NavItem link="/adopt">Adopt</NavItem>
@@ -28,9 +27,7 @@ class Navbar extends Component {
             Tokens: 1000
           </span>
         </NavItem>
-        <NavItem clicked={this.handleSignOut} link={link}>
-          {direction}
-        </NavItem>
+        <NavItem clicked={this.handleSignOut}>{direction}</NavItem>
       </ul>
     );
     return navlist;

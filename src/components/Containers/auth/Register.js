@@ -12,6 +12,10 @@ import Spinner from "../../UI/Spinner/Spinner";
 import * as actions from "../../../store/actions/index";
 
 class Register extends Component {
+  componentDidMount() {
+    this.props.checkAuthState();
+  }
+
   state = {
     email: "",
     emailValid: false,
@@ -88,7 +92,7 @@ class Register extends Component {
             className="ui error message"
             style={this.props.errorMessage ? showError : null}
           >
-            {this.props.errorMecheckAuthState}
+            {this.props.errorMessage}
           </div>
         </form>
         <div className="ui message">
@@ -101,7 +105,8 @@ class Register extends Component {
 
 const mapDispatchToProps = dispatch => {
   return {
-    onSignUp: (email, password) => dispatch(actions.auth(email, password))
+    onSignUp: (email, password) => dispatch(actions.auth(email, password)),
+    checkAuthState: () => dispatch(actions.checkAuthState())
   };
 };
 

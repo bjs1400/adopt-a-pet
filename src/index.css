@@ -147,7 +147,6 @@ LAYOUT/GRID
 }
 .Modal {
   position: fixed;
-  z-index: 500;
   background-color: white;
   width: 70%;
   border: 1px solid #ccc;
@@ -252,6 +251,10 @@ LANDING PAGE
   border-radius: 25%;
   background-color: lightgreen;
   color: white;
+}
+
+.pet-card {
+  z-index: 50;
 }
 
 /* SHOW PET */

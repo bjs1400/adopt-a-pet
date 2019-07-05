@@ -12,6 +12,7 @@ import Login from "./components/Containers/auth/Login";
 import Register from "./components/Containers/auth/Register";
 import EarnTokens from "./components/Containers/EarnTokens/EarnTokens";
 import HomePage from "./components/Containers/HomePage";
+import AdoptConfirm from './components/Containers/AdoptionCenter/AdoptConfirm';
 
 import * as actions from "./store/actions/index";
 
@@ -33,6 +34,7 @@ class App extends Component {
           <Route path="/signup" component={Register} />
           <Route path="/earn-tokens" component={EarnTokens} />
           <Route path="/home" component={HomePage} />
+          <Route path="/adopt-confirm" component={AdoptConfirm} />
         </Layout>
       </div>
     );

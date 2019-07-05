@@ -22,7 +22,7 @@ const Card = props => {
 
   return (
     <Fragment>
-      <div class="ui card">
+      <div class="ui card pet-card">
         <div class="image">
           <img src={props.imgsrc} alt="pup" />
         </div>
