@@ -12,6 +12,7 @@ body {
 }
 
 .container-main {
+  margin-top: 3%;
   padding: 2% 5%;
 }
 
@@ -163,11 +164,14 @@ LAYOUT/GRID
 NAVIGATION
 */
 .Toolbar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
   display: grid;
   grid-template-columns: 1fr 2fr;
   align-items: center;
   padding: 1%;
-  margin-bottom: 3%;
   background-color: grey;
 }
 

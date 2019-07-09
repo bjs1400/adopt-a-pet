@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
+import withNavbar from "../../hoc/withNavbar";
 import { Link } from "react-router-dom";
 import FormControl from "@material-ui/core/FormControl";
 import InputLabel from "@material-ui/core/InputLabel";
@@ -106,7 +107,9 @@ const mapStateToProps = state => {
   };
 };
 
-export default connect(
+const wrappedComponent = connect(
   mapStateToProps,
   mapDispatchToProps
 )(Login);
+
+export default withNavbar(wrappedComponent);

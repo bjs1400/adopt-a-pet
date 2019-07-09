@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import withNavbar from "../../hoc/withNavbar";
 import GamesCard from "../../GamesCard";
 
 class EarnTokens extends Component {
@@ -26,4 +27,4 @@ class EarnTokens extends Component {
   }
 }
 
-export default EarnTokens;
+export default withNavbar(EarnTokens);

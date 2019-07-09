@@ -12,7 +12,8 @@ import Login from "./components/Containers/auth/Login";
 import Register from "./components/Containers/auth/Register";
 import EarnTokens from "./components/Containers/EarnTokens/EarnTokens";
 import HomePage from "./components/Containers/HomePage";
-import AdoptConfirm from './components/Containers/AdoptionCenter/AdoptConfirm';
+import AdoptConfirm from "./components/Containers/AdoptionCenter/AdoptConfirm";
+import accessDenied from "./components/Containers/accessDenied";
 
 import * as actions from "./store/actions/index";
 
@@ -24,18 +25,17 @@ class App extends Component {
   render() {
     return (
       <div class="container-main">
-        <Layout>
-          <Route path="/" exact component={LandingPage} />
-          <Route path="/adopt" component={AdoptionCenter} />
-          <Route path="/my-pets" component={MyPets} />
-          <Route path="/pet-shop" component={PetShop} />
-          <Route path="/inventory" component={InventoryPage} />
-          <Route path="/login" component={Login} />
-          <Route path="/signup" component={Register} />
-          <Route path="/earn-tokens" component={EarnTokens} />
-          <Route path="/home" component={HomePage} />
-          <Route path="/adopt-confirm" component={AdoptConfirm} />
-        </Layout>
+        <Route path="/" exact component={LandingPage} />
+        <Route path="/adopt" component={AdoptionCenter} />
+        <Route path="/my-pets" component={MyPets} />
+        <Route path="/pet-shop" component={PetShop} />
+        <Route path="/inventory" component={InventoryPage} />
+        <Route path="/login" component={Login} />
+        <Route path="/signup" component={Register} />
+        <Route path="/earn-tokens" component={EarnTokens} />
+        <Route path="/home" component={HomePage} />
+        <Route path="/adopt-confirm" component={AdoptConfirm} />
+        <Route path="/access-denied" component={accessDenied} />
       </div>
     );
   }

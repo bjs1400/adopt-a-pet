@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
+import withNavbar from "../hoc/withNavbar";
 import { Redirect } from "react-router-dom";
 import GamesCard from "../GamesCard";
 
@@ -36,4 +37,6 @@ const mapStateToProps = state => {
   };
 };
 
-export default connect(mapStateToProps)(HomePage);
+const wrappedComponent = connect(mapStateToProps)(HomePage);
+
+export default withNavbar(wrappedComponent);

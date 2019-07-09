@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import { Fragment } from "react";
 import { connect } from "react-redux";
+import withNavbar from "../../hoc/withNavbar";
 import Card from "../../Card";
 import Modal from "../../UI/Modal/Modal";
 import ShowPet from "./ShowPet";
@@ -128,8 +129,12 @@ class AdoptionCenter extends Component {
       <>
         <Link to="/signup">
           <h1>SIGN UP</h1>
-        </Link>
-        <h2>to begin adopting</h2>
+        </Link>{" "}
+        or{" "}
+        <Link to="/login">
+          <h1>LOGIN</h1>
+        </Link>{" "}
+        to begin adopting!
       </>
     ) : (
       <h1>CHOOSE A LOVING PET TO TAKE HOME TODAY!</h1>
@@ -175,7 +180,9 @@ const mapDispatchToProps = dispatch => {
   };
 };
 
-export default connect(
+const wrappedComponent = connect(
   mapStateToProps,
   mapDispatchToProps
 )(AdoptionCenter);
+
+export default withNavbar(wrappedComponent);

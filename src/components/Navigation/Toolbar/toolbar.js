@@ -7,9 +7,11 @@ const Toolbar = props => (
     <Link className="logo-link" to="/">
       <h1 className="logo-text">Adopt-A-Pet</h1>
     </Link>
-    <nav>
-      <Navbar />
-    </nav>
+    {props.showAll ? (
+      <nav>
+        <Navbar />
+      </nav>
+    ) : null}
   </header>
 );
 

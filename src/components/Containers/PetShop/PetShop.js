@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import withNavbar from "../../hoc/withNavbar";
 import Card from "../../Card";
 import Bone from "../../../assets/images/bone.jpg";
 import Modal from "../../UI/Modal/Modal";
@@ -96,4 +97,4 @@ class PetShop extends Component {
   }
 }
 
-export default PetShop;
+export default withNavbar(PetShop);

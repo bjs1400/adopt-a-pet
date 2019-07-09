@@ -39,7 +39,8 @@ const authReducer = (state = initialState, action) => {
       return {
         ...state,
         currentUser: null,
-        errorMessage: null
+        errorMessage: null,
+        isAuthenticated: false
       };
     case "CLEAR_ERROR":
       return {

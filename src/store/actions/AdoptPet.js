@@ -16,8 +16,15 @@ export const prevStep = () => {
 
 export const returnPets = pets => {
   return {
-    type: "RETURN_PET",
+    type: "RETURN_PETS",
     pets: pets
+  };
+};
+
+export const returnUsersPets = pets => {
+  return {
+    type: "RETURN_USERS_PETS",
+    usersPets: pets
   };
 };
 
@@ -40,20 +47,26 @@ export const fetchPets = () => {
 
 export const fetchUsersPets = () => {
   return async dispatch => {
-    var currentUserId = await firebase.auth().currentUser.uid;
-    var ownersRef = db.collection("owners");
-    console.log(currentUserId);
-    let ownerQuery = ownersRef.where("ownerId", "==", `${currentUserId.toString()}`);
-    ownerQuery
-      .get()
-      .then(doc => {
-        if (doc.exists) {
-          console.log(doc.data());
-        } else {
-          console.log("No such document exists.");
-        }
-      })
-      .catch(err => console.log(err));
+    if (firebase.auth().currentUser) {
+      var currentUserId = await firebase.auth().currentUser.uid;
+      console.log(currentUserId);
+      var ownersRef = db.collection("owners");
+      let ownerQuery = ownersRef.where("ownerId", "==", `${currentUserId}`);
+      ownerQuery
+        .get()
+        .then(querySnapshot => {
+          let usersPets = [];
+          querySnapshot.forEach(doc => {
+            usersPets.push(doc.data().pets[0]);
+          });
+          if (usersPets.length >= 1) {
+            dispatch(returnUsersPets(usersPets));
+          } else {
+            dispatch(returnUsersPets(null));
+          }
+        })
+        .catch(err => console.log(err));
+    }
   };
 };
 

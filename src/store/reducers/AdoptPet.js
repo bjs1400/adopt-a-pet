@@ -1,6 +1,7 @@
 const initialState = {
   step: 1,
-  pets: []
+  pets: [],
+  usersPets: null
 };
 
 // const nextStep = (state = initialState, action) => {
@@ -19,10 +20,15 @@ const initialState = {
 
 const petReducer = (state = initialState, action) => {
   switch (action.type) {
-    case "RETURN_PET":
+    case "RETURN_PETS":
       return {
         ...state,
         pets: action.pets
+      };
+    case "RETURN_USERS_PETS":
+      return {
+        ...state,
+        usersPets: action.usersPets
       };
     default:
       return state;
