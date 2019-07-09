@@ -1,58 +1,65 @@
 import React, { Component } from "react";
+import { connect } from "react-redux";
 import withNavbar from "../../hoc/withNavbar";
 import Card from "../../Card";
 import Bone from "../../../assets/images/bone.jpg";
 import Modal from "../../UI/Modal/Modal";
 import ShowItem from "./ShowItem";
 
+import * as actions from "../../../store/actions/index";
+
 class PetShop extends Component {
+  componentDidMount() {
+    this.props.fetchItems();
+  }
+
   state = {
     show: false,
-    shownItemId: null, // id property
-    items: [
-      {
-        name: "Frisbee",
-        cost: 80,
-        type: "toy",
-        description:
-          "your pup will love this cute toy. i can deal with the bad nights when im with my baby yeah lorem ipsum dolar when im with my baby yeah I'm"
-      },
-      {
-        name: "Bouncy Ball",
-        cost: 60,
-        type: "toy",
-        description:
-          "your pup will love this cute toy. i can deal with the bad nights when im with my baby yeah lorem ipsum dolar when im with my baby yeah"
-      },
-      {
-        name: "Pacifier",
-        cost: 100,
-        type: "toy",
-        description:
-          "your pup will love this cute toy. i can deal with the bad nights when im with my baby yeah lorem ipsum dolar when im with my baby yeah"
-      },
-      {
-        name: "Lollipop",
-        cost: 40,
-        type: "food",
-        description:
-          "your pup will love this cute toy. i can deal with the bad nights when im with my baby yeah lorem ipsum dolar when im with my baby yeah"
-      },
-      {
-        name: "Brocolli",
-        cost: 20,
-        type: "food",
-        description:
-          "your pup will love this cute toy. i can deal with the bad nights when"
-      },
-      {
-        name: "Bacon Strips",
-        cost: 120,
-        type: "food",
-        description:
-          "your pup will love this cute toy. i can deal with the bad nights when"
-      }
-    ]
+    shownItemId: null // id property
+    // items: [
+    //   {
+    //     name: "Frisbee",
+    //     cost: 80,
+    //     type: "toy",
+    //     description:
+    //       "your pup will love this cute toy. i can deal with the bad nights when im with my baby yeah lorem ipsum dolar when im with my baby yeah I'm"
+    //   },
+    //   {
+    //     name: "Bouncy Ball",
+    //     cost: 60,
+    //     type: "toy",
+    //     description:
+    //       "your pup will love this cute toy. i can deal with the bad nights when im with my baby yeah lorem ipsum dolar when im with my baby yeah"
+    //   },
+    //   {
+    //     name: "Pacifier",
+    //     cost: 100,
+    //     type: "toy",
+    //     description:
+    //       "your pup will love this cute toy. i can deal with the bad nights when im with my baby yeah lorem ipsum dolar when im with my baby yeah"
+    //   },
+    //   {
+    //     name: "Lollipop",
+    //     cost: 40,
+    //     type: "food",
+    //     description:
+    //       "your pup will love this cute toy. i can deal with the bad nights when im with my baby yeah lorem ipsum dolar when im with my baby yeah"
+    //   },
+    //   {
+    //     name: "Brocolli",
+    //     cost: 20,
+    //     type: "food",
+    //     description:
+    //       "your pup will love this cute toy. i can deal with the bad nights when"
+    //   },
+    //   {
+    //     name: "Bacon Strips",
+    //     cost: 120,
+    //     type: "food",
+    //     description:
+    //       "your pup will love this cute toy. i can deal with the bad nights when"
+    //   }
+    // ]
   };
 
   showItem = id => {
@@ -68,7 +75,7 @@ class PetShop extends Component {
   };
 
   render() {
-    let itemsForSale = this.state.items.map(item => (
+    let itemsForSale = this.props.items.map(item => (
       <div className="shop-item">
         <Card
           btnClicked={() => this.showItem(item.id)}
@@ -97,4 +104,21 @@ class PetShop extends Component {
   }
 }
 
-export default withNavbar(PetShop);
+const mapStateToProps = state => {
+  return {
+    items: state.store.storeInventory
+  };
+};
+
+const mapDispatchToProps = dispatch => {
+  return {
+    fetchItems: () => dispatch(actions.fetchInventory())
+  };
+};
+
+const wrappedComponent = connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(PetShop);
+
+export default withNavbar(wrappedComponent);
