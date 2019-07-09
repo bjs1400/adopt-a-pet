@@ -7,6 +7,7 @@ import Modal from "../../UI/Modal/Modal";
 import ShowPet from "./ShowPet";
 import Spinner from "../../UI/Spinner/Spinner";
 import AdoptConfirm from "./AdoptConfirm";
+import Pup from "../../../assets/images/pup.jpg";
 import * as actions from "../../../store/actions/index";
 
 import history from "../../../history";
@@ -91,31 +92,37 @@ class AdoptionCenter extends Component {
   };
 
   adoptContinue = id => {
-    history.push("/adopt-confirm");
+    this.props.assignPetToUser(id);
     this.setState({
       show: false
     });
   };
 
   render() {
-    let cardList = this.props.pets.map(pet => {
-      return this.props.pets ? (
-        <div key={pet.id} className="pet-square">
-          <Card
-            key={pet.id.toString()}
-            btnContent="Choose Me!"
-            btnClass="ui button primary"
-            imgsrc={pet.image.path}
-            btnClicked={() => this.viewPet(pet.id)}
-            name={pet.name}
-            age={pet.age}
-            description={pet.description}
-          />
-        </div>
-      ) : (
+    var cardList = !this.props.pets ? (
+      <div>
         <Spinner />
-      );
-    });
+        <Spinner />
+        <Spinner />
+      </div>
+    ) : (
+      this.props.pets.map(pet => {
+        return (
+          <div key={pet.id} className="pet-square">
+            <Card
+              key={pet.id.toString()}
+              btnContent="Choose Me!"
+              btnClass="ui button primary"
+              imgsrc={Pup}
+              btnClicked={() => this.viewPet(pet.petId)}
+              name={pet.name}
+              age={pet.age}
+              description={pet.description}
+            />
+          </div>
+        );
+      })
+    );
 
     let heading = !this.props.isAuthenticated ? (
       <>
@@ -163,7 +170,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    fetchPets: () => dispatch(actions.fetchPets())
+    fetchPets: () => dispatch(actions.fetchPets()),
+    assignPetToUser: petId => dispatch(actions.assignPetToUser(petId))
   };
 };
 

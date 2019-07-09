@@ -2,7 +2,7 @@ import React, { Fragment } from "react";
 import Backdrop from "../Backdrop/Backdrop";
 
 const Modal = props => {
-  const { zindex } = props;
+  const zindex = props.zindex ? props.zindex : 105;
   return (
     <Fragment>
       <Backdrop show={props.show} clicked={props.modalClosed} />

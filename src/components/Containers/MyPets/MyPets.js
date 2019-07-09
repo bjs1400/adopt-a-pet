@@ -1,9 +1,15 @@
 import React, { Component } from "react";
+import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import PetBox from "./PetBox";
 import Pup from "../../../assets/images/pup.jpg";
 
+import * as actions from "../../../store/actions/index";
+
 class MyPets extends Component {
+  componentDidMount() {
+    this.props.fetchUsersPets();
+  }
   state = {
     quote: "A pet is your best friend",
     pets: [
@@ -67,5 +73,13 @@ class MyPets extends Component {
     );
   }
 }
+const mapDispatchToProps = dispatch => {
+  return {
+    fetchUsersPets: () => dispatch(actions.fetchUsersPets())
+  };
+};
 
-export default MyPets;
+export default connect(
+  null,
+  mapDispatchToProps
+)(MyPets);
