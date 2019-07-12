@@ -18,11 +18,15 @@ class Login extends Component {
 
   state = {
     email: "",
-    password: ""
+    password: "",
+    zindex: null
   };
 
   handleClick = e => {
     e.preventDefault();
+    this.setState({
+      zindex: 105
+    });
     this.props.onLogIn(this.state.email, this.state.password);
     console.log(this.props.errorMessage);
   };
@@ -42,7 +46,7 @@ class Login extends Component {
 
     return (
       <div className="column">
-        <Modal show={this.props.loading}>
+        <Modal zindex={this.state.zindex} show={this.props.loading}>
           <Spinner />
         </Modal>
         <h2>

@@ -14,6 +14,7 @@ import EarnTokens from "./components/Containers/EarnTokens/EarnTokens";
 import HomePage from "./components/Containers/HomePage";
 import AdoptConfirm from "./components/Containers/AdoptionCenter/AdoptConfirm";
 import accessDenied from "./components/Containers/accessDenied";
+import TicTacToe from "./components/Containers/EarnTokens/Games/TicTacToe/TicTacToe";
 
 import * as actions from "./store/actions/index";
 
@@ -32,10 +33,11 @@ class App extends Component {
         <Route path="/inventory" component={InventoryPage} />
         <Route path="/login" component={Login} />
         <Route path="/signup" component={Register} />
-        <Route path="/earn-tokens" component={EarnTokens} />
+        <Route exact path="/earn-tokens" component={EarnTokens} />
         <Route path="/home" component={HomePage} />
         <Route path="/adopt-confirm" component={AdoptConfirm} />
         <Route path="/access-denied" component={accessDenied} />
+        <Route exact path="/earn-tokens/tic-tac-toe" component={TicTacToe} />
       </div>
     );
   }

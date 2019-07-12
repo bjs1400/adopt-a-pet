@@ -193,8 +193,6 @@ NAVIGATION
 /********
 LANDING PAGE
 *********/
-.landing-page {
-}
 .landing-container {
   width: 80%;
   text-align: center;
@@ -258,7 +256,7 @@ LANDING PAGE
   color: white;
 }
 
-.pet-card {
+.display-card {
   z-index: 50;
 }
 
@@ -437,4 +435,40 @@ LANDING PAGE
 }
 .games-card:hover::after {
   display: none;
+}
+.game-container {
+  width: 90%;
+  margin: 0 auto;
+  padding: 2%;
+}
+
+/* TIC TAC TOE */
+.tic-tac-toe-container {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(3, 1fr);
+  width: 70%;
+  margin: 0 auto;
+}
+
+.ttt-sq {
+  background-color: rgba(0, 0, 0, 0.1);
+  height: 150px;
+  border-bottom: 3px solid black;
+  text-align: center;
+}
+
+.ttt-img {
+  width: 50%;
+  margin: 0 auto;
+  text-align: center;
+}
+
+#ttt-1,
+#ttt-2,
+#ttt-4,
+#ttt-5,
+#ttt-7,
+#ttt-8 {
+  border-right: 3px solid black;
 }

@@ -13,6 +13,10 @@ import Spinner from "../../UI/Spinner/Spinner";
 import * as actions from "../../../store/actions/index";
 
 class Register extends Component {
+  state = {
+    zindex: null
+  };
+
   componentDidMount() {
     this.props.checkAuthState();
   }
@@ -30,6 +34,9 @@ class Register extends Component {
 
   handleClick = e => {
     e.preventDefault();
+    this.setState({
+      zindex: 105
+    });
     this.props.onSignUp(this.state.email, this.state.password);
   };
 
@@ -53,7 +60,7 @@ class Register extends Component {
 
     return (
       <div className="column">
-        <Modal show={this.props.loading}>
+        <Modal zindex={this.state.zindex} show={this.props.loading}>
           <Spinner />
         </Modal>
         {authRedirect}

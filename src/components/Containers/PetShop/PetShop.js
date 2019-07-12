@@ -15,7 +15,8 @@ class PetShop extends Component {
 
   state = {
     show: false,
-    shownItemId: null // id property
+    shownItemId: null, // id
+    zindex: 40
     // items: [
     //   {
     //     name: "Frisbee",
@@ -63,37 +64,44 @@ class PetShop extends Component {
   };
 
   showItem = id => {
+    this.props.fetchItem(id);
     this.setState({
       show: true,
-      shownItemId: id
+      shownItemId: id,
+      zindex: 105
     });
   };
   cancelHandler = () => {
     this.setState({
-      show: false
+      show: false,
+      zindex: 40
     });
   };
 
   render() {
-    let itemsForSale = this.props.items.map(item => (
-      <div className="shop-item">
-        <Card
-          btnClicked={() => this.showItem(item.id)}
-          btnContent="View More"
-          btnClass="ui primary button"
-          imgsrc={Bone}
-          name="Bone"
-          description={`${item.cost} tokens`}
-        />
-      </div>
-    ));
+    var itemsForSale = this.props.items
+      ? this.props.items.map(item => (
+          <div key={item.id} className="shop-item">
+            <Card
+              btnClicked={() => this.showItem(item.id)}
+              btnContent="View More"
+              btnClass="ui primary button"
+              imgsrc={Bone}
+              name={item.name}
+              description={`${item.price} tokens`}
+            />
+          </div>
+        ))
+      : null;
+
     return (
       <>
-        <Modal show={this.state.show} modalClosed={this.cancelHandler}>
-          <ShowItem
-            itemName="Bone"
-            description={this.state.items[0].description}
-          />
+        <Modal
+          show={this.state.show}
+          modalClosed={this.cancelHandler}
+          zindex={this.state.zindex}
+        >
+          <ShowItem itemName="Bone" description="Test Description" />
         </Modal>
         <h1>PET SHOP</h1>
         Welcome to the Pet Shop! Here, you can buy toys and food for your pet to
@@ -112,7 +120,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    fetchItems: () => dispatch(actions.fetchInventory())
+    fetchItems: () => dispatch(actions.fetchInventory()),
+    fetchItem: id => dispatch(actions.fetchItem(id))
   };
 };
 
