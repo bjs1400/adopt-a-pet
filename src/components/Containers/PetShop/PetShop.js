@@ -5,6 +5,7 @@ import Card from "../../Card";
 import Bone from "../../../assets/images/bone.jpg";
 import Modal from "../../UI/Modal/Modal";
 import ShowItem from "./ShowItem";
+import Spinner from "../../UI/Spinner/Spinner";
 
 import * as actions from "../../../store/actions/index";
 
@@ -72,6 +73,7 @@ class PetShop extends Component {
     });
   };
   cancelHandler = () => {
+    this.setState({ loading: true });
     this.setState({
       show: false,
       zindex: 40
@@ -79,20 +81,36 @@ class PetShop extends Component {
   };
 
   render() {
-    var itemsForSale = this.props.items
-      ? this.props.items.map(item => (
-          <div key={item.id} className="shop-item">
-            <Card
-              btnClicked={() => this.showItem(item.id)}
-              btnContent="View More"
-              btnClass="ui primary button"
-              imgsrc={Bone}
-              name={item.name}
-              description={`${item.price} tokens`}
-            />
-          </div>
-        ))
-      : null;
+    let showItem = this.props.loading ? (
+      <Spinner />
+    ) : (
+      <ShowItem
+        price={this.props.item.price}
+        itemName={this.props.item.name}
+        description={this.props.item.description}
+      />
+    );
+
+    var itemsForSale = this.props.items ? (
+      this.props.items.map(item => (
+        <div key={item.id} className="shop-item">
+          <Card
+            btnClicked={() => this.showItem(item.id)}
+            btnContent="View More"
+            btnClass="ui primary button"
+            imgsrc={Bone}
+            name={item.name}
+            description={`${item.price} tokens`}
+          />
+        </div>
+      ))
+    ) : (
+      <>
+        <Spinner />
+        <Spinner />
+        <Spinner />
+      </>
+    );
 
     return (
       <>
@@ -101,7 +119,7 @@ class PetShop extends Component {
           modalClosed={this.cancelHandler}
           zindex={this.state.zindex}
         >
-          <ShowItem itemName="Bone" description="Test Description" />
+          {showItem}
         </Modal>
         <h1>PET SHOP</h1>
         Welcome to the Pet Shop! Here, you can buy toys and food for your pet to
@@ -114,7 +132,9 @@ class PetShop extends Component {
 
 const mapStateToProps = state => {
   return {
-    items: state.store.storeInventory
+    items: state.store.storeInventory,
+    item: state.store.item,
+    loading: state.store.loading
   };
 };
 

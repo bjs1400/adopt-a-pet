@@ -15,7 +15,7 @@ const ShowItem = props => {
             </em>{" "}
             {props.description}
           </div>
-          <div className="item-cost-box">85 Tokens</div>
+          <div className="item-cost-box">{props.price} Tokens</div>
           <div>
             <div />
             <Button btnClass="ui green button buy-item-btn">BUY NOW</Button>

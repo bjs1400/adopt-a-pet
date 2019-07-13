@@ -22,33 +22,131 @@ class TicTacToe extends Component {
 
   state = {
     turn: 1,
-    ref1enabled: true,
-    ref2enabled: true,
-    ref3enabled: true,
-    ref4enabled: true,
-    ref5enabled: true,
-    ref6enabled: true,
-    ref7enabled: true,
-    ref8enabled: true,
-    ref9enabled: true,
+    ref1: {
+      show: false,
+      enabled: true
+    },
+    ref2: {
+      show: false,
+      enabled: true
+    },
+    ref3: {
+      show: false,
+      enabled: true
+    },
+    ref4: {
+      show: false,
+      enabled: true
+    },
+    ref5: {
+      show: false,
+      enabled: true
+    },
+    ref6: {
+      show: false,
+      enabled: true
+    },
+    ref7: {
+      show: false,
+      enabled: true
+    },
+    ref8: {
+      show: false,
+      enabled: true
+    },
+    ref9: {
+      show: false,
+      enabled: true
+    },
     contents: x,
     show: false
   };
 
   squareClicked = ref => {
-    this.setState({
-      show: true
-    });
-    // this.setState(state => {
-    //   //increase turn
-    //   return {
-    //     turn: state.turn + 1
-    //   };
-    // });
-    // set the clicked square to not enabled
+    switch (ref) {
+      case "1":
+        this.setState({
+          ref1: {
+            show: true,
+            enabled: false
+          }
+        });
+        break;
+      case "2": {
+        this.setState({
+          ref2: {
+            show: true,
+            enabled: false
+          }
+        });
+        break;
+      }
+      case "3":
+        this.setState({
+          ref3: {
+            show: true,
+            enabled: false
+          }
+        });
+        break;
+      case "4": {
+        this.setState({
+          ref4: {
+            show: true,
+            enabled: false
+          }
+        });
+        break;
+      }
+      case "5":
+        this.setState({
+          ref5: {
+            show: true,
+            enabled: false
+          }
+        });
+        break;
+      case "6": {
+        this.setState({
+          ref6: {
+            show: true,
+            enabled: false
+          }
+        });
+        break;
+      }
+      case "7":
+        this.setState({
+          ref7: {
+            show: true,
+            enabled: false
+          }
+        });
+        break;
+      case "8": {
+        this.setState({
+          ref8: {
+            show: true,
+            enabled: false
+          }
+        });
+        break;
+      }
+      case "9":
+        this.setState({
+          ref9: {
+            show: true,
+            enabled: false
+          }
+        });
+        break;
+      default:
+        return null;
+    }
+    this.computersTurn(ref);
   };
 
-  computersTurn = selected => {
+  computersTurn = squareRef => {
     // switch (selected) {
     //   case "1": {
     //     if (this.state.ref2enabled) {
@@ -76,64 +174,73 @@ class TicTacToe extends Component {
         <div className="game-container">
           <div className="tic-tac-toe-container">
             <TicTacToeSquare
-              show={this.state.show}
-              clicked={ref => this.squareClicked(ref)}
+              ref={one => (this.refOne = one)}
+              show={this.state.ref1.show}
+              clicked={() => this.squareClicked("1")}
               id="1"
             >
               <img className="ttt-img" src={this.state.contents} alt="x or o" />
             </TicTacToeSquare>
             <TicTacToeSquare
-              show={this.state.show}
-              clicked={ref => this.squareClicked(ref)}
+              ref={two => (this.refTwo = two)}
+              show={this.state.ref2.show}
+              clicked={() => this.squareClicked("2")}
               id="2"
             >
               <img className="ttt-img" src={this.state.contents} alt="x or o" />
             </TicTacToeSquare>
             <TicTacToeSquare
-              show={this.state.show}
-              clicked={ref => this.squareClicked(ref)}
+              ref={three => (this.refThree = three)}
+              show={this.state.ref3.show}
+              clicked={() => this.squareClicked("3")}
               id="3"
             >
               <img className="ttt-img" src={this.state.contents} alt="x or o" />
             </TicTacToeSquare>
             <TicTacToeSquare
-              show={this.state.show}
-              clicked={ref => this.squareClicked(ref)}
+              ref={four => (this.refFour = four)}
+              show={this.state.ref4.show}
+              clicked={() => this.squareClicked("4")}
               id="4"
             >
               <img className="ttt-img" src={this.state.contents} alt="x or o" />
             </TicTacToeSquare>
             <TicTacToeSquare
-              show={this.state.show}
-              clicked={ref => this.squareClicked(ref)}
+              ref={five => (this.refFive = five)}
+              show={this.state.ref5.show}
+              clicked={() => this.squareClicked("5")}
               id="5"
             >
               <img className="ttt-img" src={this.state.contents} alt="x or o" />
             </TicTacToeSquare>
             <TicTacToeSquare
-              show={this.state.show}
-              clicked={ref => this.squareClicked(ref)}
+              ref={six => (this.refSix = six)}
+              show={this.state.ref6.show}
+              clicked={() => this.squareClicked("6")}
               id="6"
             >
               <img className="ttt-img" src={this.state.contents} alt="x or o" />
             </TicTacToeSquare>
             <TicTacToeSquare
-              show={this.state.show}
-              clicked={ref => this.squareClicked(ref)}
+              ref={seven => (this.refSeven = seven)}
+              show={this.state.ref7.show}
+              clicked={() => this.squareClicked("7")}
               id="7"
             >
               <img className="ttt-img" src={this.state.contents} alt="x or o" />
             </TicTacToeSquare>
             <TicTacToeSquare
-              show={this.state.show}
-              clicked={ref => this.squareClicked(ref)}
+              ref={eight => (this.refEight = eight)}
+              show={this.state.ref8.show}
+              clicked={() => this.squareClicked("8")}
               id="8"
             >
               <img className="ttt-img" src={this.state.contents} alt="x or o" />
             </TicTacToeSquare>
             <TicTacToeSquare
-              show={this.state.show}
-              clicked={ref => this.squareClicked(ref)}
+              ref={nine => (this.refNine = nine)}
+              show={this.state.ref9.show}
+              clicked={() => this.squareClicked("9")}
               id="9"
             >
               <img className="ttt-img" src={this.state.contents} alt="x or o" />

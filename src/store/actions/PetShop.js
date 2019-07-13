@@ -15,15 +15,24 @@ export const returnItem = item => {
   };
 };
 
+export const fetchStart = () => {
+  return {
+    type: "FETCH_START"
+  };
+};
+
 export const fetchItem = id => {
   return dispatch => {
+    dispatch(fetchStart());
     console.log(id);
-    let itemRef = db.collection("store-inventory").where("id", "==", `${id}`);
+    let itemRef = db.collection("store-inventory").where("itemId", "==", id);
     itemRef
       .get()
       .then(querySnapshot => {
+        console.log(querySnapshot);
         querySnapshot.forEach(doc => {
-          dispatch(fetchItem(doc.data()));
+          console.log(doc.data());
+          dispatch(returnItem(doc.data()));
         });
       })
       .catch(err => console.log(err));
