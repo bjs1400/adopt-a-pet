@@ -80,6 +80,10 @@ class PetShop extends Component {
     });
   };
 
+  purchaseHandler = () => {
+    this.props.purchaseItem(this.state.shownItemId); // item.id
+  };
+
   render() {
     let showItem = this.props.loading ? (
       <Spinner />
@@ -88,6 +92,7 @@ class PetShop extends Component {
         price={this.props.item.price}
         itemName={this.props.item.name}
         description={this.props.item.description}
+        purchase={this.purchaseHandler}
       />
     );
 
@@ -141,7 +146,8 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return {
     fetchItems: () => dispatch(actions.fetchInventory()),
-    fetchItem: id => dispatch(actions.fetchItem(id))
+    fetchItem: id => dispatch(actions.fetchItem(id)),
+    purchaseItem: id => dispatch(actions.purchaseItem(id))
   };
 };
 

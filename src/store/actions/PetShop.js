@@ -1,3 +1,4 @@
+import history from "../../history";
 import firebase from "../../config/firebaseConfig";
 const db = firebase.firestore();
 
@@ -40,8 +41,10 @@ export const fetchItem = id => {
 };
 
 export const fetchInventory = () => {
-  return dispatch => {
-    let itemsRef = db.collection("store-inventory");
+  return async dispatch => {
+    let itemsRef = await db
+      .collection("store-inventory")
+      .where("ownerId", "==", null);
     console.log(itemsRef);
     if (itemsRef) {
       itemsRef
@@ -58,5 +61,46 @@ export const fetchInventory = () => {
     } else {
       console.log("firebase is the problem");
     }
+  };
+};
+
+export const purchaseItem = id => {
+  return async dispatch => {
+    // assign the item to the current user
+    //delete it from the database
+    dispatch(fetchStart());
+    var currentUserId = await firebase.auth().currentUser.uid;
+    db.collection("store-inventory")
+      .where("id", "==", id)
+      .get()
+      .then(querySnapshot => {
+        querySnapshot.forEach(doc => {
+          console.log(doc.id);
+          var itemRef = db.collection("store-inventory").doc(doc.id);
+          itemRef
+            .update({
+              ownerId: currentUserId
+            })
+            .then(() => history.push("/inventory"))
+            .catch(err => console.log(console.error()));
+        });
+      })
+      .catch(err => console.log(err));
+  };
+};
+
+export const fetchUsersItems = () => {
+  return async dispatch => {
+    var currentUserId = await firebase.auth().currentUser.uid;
+    db.collection("store-inventory")
+      .where("ownerId", "==", currentUserId)
+      .get()
+      .then(querySnapshot => {
+        querySnapshot.forEach(doc => {
+          console.log(doc.data());
+          // dispatch(returnUsersItems(doc.data()))
+        });
+      })
+      .catch(err => console.log(err));
   };
 };

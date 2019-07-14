@@ -100,18 +100,18 @@ class AdoptionCenter extends Component {
   };
 
   render() {
-    var cardList = !this.props.pets ? (
-      <div>
+    var cardList = this.props.loading ? (
+      <>
         <Spinner />
         <Spinner />
         <Spinner />
-      </div>
+      </>
     ) : (
       this.props.pets.map(pet => {
         return (
           <div key={pet.id} className="pet-square">
             <Card
-              key={pet.id.toString()}
+              key={pet.id}
               btnContent="Choose Me!"
               btnClass="ui button primary"
               imgsrc={Pup}
@@ -140,6 +140,18 @@ class AdoptionCenter extends Component {
       <h1>CHOOSE A LOVING PET TO TAKE HOME TODAY!</h1>
     );
 
+    let showPet = this.props.loading ? (
+      <Spinner />
+    ) : (
+      <ShowPet
+        name="Test Name"
+        age="12"
+        adoptContinue={() => this.adoptContinue(this.state.shownPetId)}
+        hidePet={this.cancelHandler}
+        id={this.state.shownPetId}
+      />
+    );
+
     return (
       // ** FOR NOW WE PASS IN OUR PET LIST TO SHOWPET, BUT LATER WE WONT NEED TO BC WE'LL USE REDUX for pets list
       <Fragment>
@@ -148,13 +160,7 @@ class AdoptionCenter extends Component {
           show={this.state.show}
           modalClosed={this.cancelHandler}
         >
-          <ShowPet
-            name="Test Name"
-            age="12"
-            adoptContinue={() => this.adoptContinue(this.state.shownPetId)}
-            hidePet={this.cancelHandler}
-            id={this.state.shownPetId}
-          />
+          {showPet}
         </Modal>
         {heading}
         <div className="adoption-grid">
@@ -169,7 +175,8 @@ class AdoptionCenter extends Component {
 const mapStateToProps = state => {
   return {
     isAuthenticated: state.auth.isAuthenticated,
-    pets: state.adopt.pets
+    pets: state.adopt.pets,
+    loading: state.adopt.loading
   };
 };
 

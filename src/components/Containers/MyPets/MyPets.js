@@ -5,6 +5,7 @@ import withNavbar from "../../hoc/withNavbar";
 import { Link } from "react-router-dom";
 import PetBox from "./PetBox";
 import Pup from "../../../assets/images/pup.jpg";
+import Spinner from "../../UI/Spinner/Spinner";
 
 import * as actions from "../../../store/actions/index";
 
@@ -16,7 +17,13 @@ class MyPets extends Component {
     quote: "A pet is your best friend"
   };
   render() {
-    let myPets = this.props.usersPets ? (
+    let loading = this.props.loading ? (
+      <>
+        <Spinner />
+        <Spinner />
+        <Spinner />
+      </>
+    ) : (
       this.props.usersPets.map(pet => {
         return (
           <PetBox
@@ -28,18 +35,20 @@ class MyPets extends Component {
           />
         );
       })
-    ) : (
-      <h1>
-        You don't have any pets yet. You must be lonely! Visit the{" "}
-        <Link to="/adopt">Adoption Center</Link> to adopt a pet!
-      </h1>
     );
+
+    // let myPets = this.props.usersPets ?  : (
+    //   <h1>
+    //     You don't have any pets yet. You must be lonely! Visit the{" "}
+    //     <Link to="/adopt">Adoption Center</Link> to adopt a pet!
+    //   </h1>
+    // );
 
     return (
       <>
         <h1>MY TRIBE</h1>
         <div className="my-pets-container">
-          {myPets}
+          {loading}
           <div className="quote-box">
             <h1>QUOTE OF THE DAY: </h1>
             {this.state.quote}
@@ -63,7 +72,8 @@ class MyPets extends Component {
 }
 const mapStateToProps = state => {
   return {
-    usersPets: state.adopt.usersPets
+    usersPets: state.adopt.usersPets,
+    loading: state.adopt.loading
   };
 };
 

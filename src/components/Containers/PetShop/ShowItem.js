@@ -18,7 +18,12 @@ const ShowItem = props => {
           <div className="item-cost-box">{props.price} Tokens</div>
           <div>
             <div />
-            <Button btnClass="ui green button buy-item-btn">BUY NOW</Button>
+            <Button
+              clicked={props.purchase}
+              btnClass="ui green button buy-item-btn"
+            >
+              BUY NOW
+            </Button>
           </div>
         </div>
       </div>

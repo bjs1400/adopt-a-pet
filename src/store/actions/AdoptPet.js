@@ -28,6 +28,12 @@ export const returnUsersPets = pets => {
   };
 };
 
+export const fetchStart = () => {
+  return {
+    type: "FETCH_START"
+  };
+};
+
 export const fetchPets = () => {
   return dispatch => {
     let petsRef = db.collection("pets");
@@ -47,6 +53,7 @@ export const fetchPets = () => {
 
 export const fetchUsersPets = () => {
   return async dispatch => {
+    dispatch(fetchStart());
     if (firebase.auth().currentUser) {
       var currentUserId = await firebase.auth().currentUser.uid;
       console.log(currentUserId);
