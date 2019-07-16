@@ -137,9 +137,9 @@ class PetShop extends Component {
 
 const mapStateToProps = state => {
   return {
+    loading: state.store.loading,
     items: state.store.storeInventory,
-    item: state.store.item,
-    loading: state.store.loading
+    item: state.store.item
   };
 };
 
