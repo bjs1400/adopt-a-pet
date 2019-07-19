@@ -1,5 +1,6 @@
 import firebase from "../../config/firebaseConfig";
 import history from "../../history";
+const db = firebase.firestore();
 
 // export const authStart = () => {
 //   return {
@@ -13,10 +14,11 @@ export const authStart = () => {
   };
 };
 
-export const authSuccess = user => {
+export const authSuccess = (user, token) => {
   return {
     type: "AUTH_SUCCESS",
-    currentUser: user
+    currentUser: user,
+    token: token
   };
 };
 
@@ -28,15 +30,24 @@ export const authFail = errorMessage => {
 };
 
 export const auth = (email, password) => {
-  return dispatch => {
+  return async dispatch => {
     dispatch(authStart());
     firebase
       .auth()
       .createUserWithEmailAndPassword(email, password)
       .then(res => {
-        console.log(res);
         console.log(res.user);
-        dispatch(authSuccess(res.user));
+        db.collection("users")
+          .doc(res.user.uid)
+          .set({
+            userId: res.user.uid,
+            email: email,
+            tokens: 100
+          })
+          .then(res => {
+            history.push("/home");
+          })
+          .catch(err => console.log("Error adding new user to db: " + err));
       })
       .catch(err => {
         if (err.code === "auth/email-already-in-use") {

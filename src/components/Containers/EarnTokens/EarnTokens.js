@@ -16,7 +16,7 @@ class EarnTokens extends Component {
         </h2>
         <div className="games-container">
           <GamesCard link="/earn-tokens/tic-tac-toe" />
-          <GamesCard />
+          <GamesCard link="/earn-tokens/rock-paper-scissors" />
           <GamesCard />
           <GamesCard />
           <GamesCard />

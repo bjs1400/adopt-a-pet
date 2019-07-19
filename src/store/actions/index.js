@@ -6,3 +6,4 @@ export {
   purchaseItem,
   fetchUsersItems
 } from "./PetShop";
+export { updateTokens, fetchTokens } from "./Tokens";

@@ -25,7 +25,8 @@ const authReducer = (state = initialState, action) => {
         currentUser: action.currentUser,
         loading: false,
         isAuthenticated: true,
-        errorMessage: null
+        errorMessage: null,
+        token: action.token
       };
     case "AUTH_FAIL":
       return {
@@ -33,14 +34,16 @@ const authReducer = (state = initialState, action) => {
         errorMessage: action.errorMessage,
         loading: false,
         currentUser: null,
-        isAuthenticated: false
+        isAuthenticated: false,
+        token: null
       };
     case "AUTH_LOGOUT":
       return {
         ...state,
         currentUser: null,
         errorMessage: null,
-        isAuthenticated: false
+        isAuthenticated: false,
+        token: null
       };
     case "CLEAR_ERROR":
       return {

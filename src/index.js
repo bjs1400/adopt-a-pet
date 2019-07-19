@@ -11,13 +11,15 @@ import App from "./App";
 import authReducer from "./store/reducers/auth";
 import adoptReducer from "./store/reducers/AdoptPet";
 import shopReducer from "./store/reducers/PetShop";
+import tokenReducer from "./store/reducers/Tokens";
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
 const rootReducer = combineReducers({
   auth: authReducer,
   adopt: adoptReducer,
-  store: shopReducer
+  store: shopReducer,
+  tokens: tokenReducer
 });
 
 const store = createStore(

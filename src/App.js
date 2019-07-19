@@ -15,6 +15,7 @@ import HomePage from "./components/Containers/HomePage";
 import AdoptConfirm from "./components/Containers/AdoptionCenter/AdoptConfirm";
 import accessDenied from "./components/Containers/accessDenied";
 import TicTacToe from "./components/Containers/EarnTokens/Games/TicTacToe/TicTacToe";
+import RockPaperScissors from "./components/Containers/EarnTokens/Games/RockPaperScissors/RockPaperScissors";
 
 import * as actions from "./store/actions/index";
 
@@ -38,6 +39,11 @@ class App extends Component {
         <Route path="/adopt-confirm" component={AdoptConfirm} />
         <Route path="/access-denied" component={accessDenied} />
         <Route exact path="/earn-tokens/tic-tac-toe" component={TicTacToe} />
+        <Route
+          exact
+          path="/earn-tokens/rock-paper-scissors"
+          component={RockPaperScissors}
+        />
       </div>
     );
   }

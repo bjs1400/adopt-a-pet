@@ -12,10 +12,14 @@ import * as actions from "../../../store/actions/index";
 class MyPets extends Component {
   componentDidMount() {
     this.props.fetchUsersPets();
+    this.fetchRandomQuote();
   }
   state = {
-    quote: "A pet is your best friend"
+    quote: "Quote"
   };
+
+  fetchRandomQuote = () => {};
+
   render() {
     let loading = this.props.loading ? (
       <>

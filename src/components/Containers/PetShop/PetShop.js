@@ -12,6 +12,7 @@ import * as actions from "../../../store/actions/index";
 class PetShop extends Component {
   componentDidMount() {
     this.props.fetchItems();
+    console.log(this.props.items);
   }
 
   state = {
@@ -85,16 +86,26 @@ class PetShop extends Component {
   };
 
   render() {
-    let showItem = this.props.loading ? (
-      <Spinner />
-    ) : (
-      <ShowItem
-        price={this.props.item.price}
-        itemName={this.props.item.name}
-        description={this.props.item.description}
-        purchase={this.purchaseHandler}
-      />
-    );
+    let showItem = () => {
+      switch (this.props.itemFetched) {
+        case null: {
+          return null;
+        }
+        case "itemFound":
+          return (
+            <ShowItem
+              price={this.props.item.price}
+              itemName={this.props.item.name}
+              description={this.props.item.description}
+              purchase={this.purchaseHandler}
+            />
+          );
+        case "loading":
+          return <Spinner />;
+        default:
+          return null;
+      }
+    };
 
     var itemsForSale = this.props.items ? (
       this.props.items.map(item => (
@@ -137,9 +148,10 @@ class PetShop extends Component {
 
 const mapStateToProps = state => {
   return {
+    loading: state.store.loading,
     items: state.store.storeInventory,
     item: state.store.item,
-    loading: state.store.loading
+    itemFetched: state.store.itemFetched
   };
 };
 

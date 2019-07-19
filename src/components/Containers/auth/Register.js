@@ -49,11 +49,6 @@ class Register extends Component {
   render() {
     const { email, password } = this.state;
 
-    let authRedirect = null;
-    if (this.props.currentUser) {
-      authRedirect = <Redirect to="/home" />;
-    }
-
     let showError = {
       display: "block"
     };
@@ -63,7 +58,6 @@ class Register extends Component {
         <Modal zindex={this.state.zindex} show={this.props.loading}>
           <Spinner />
         </Modal>
-        {authRedirect}
         <h2>
           Register to Adopt-A-Pet to begin Adopting, Earning Tokens, Playing
           Games, and More!
@@ -121,7 +115,6 @@ const mapDispatchToProps = dispatch => {
 const mapStateToProps = state => {
   return {
     errorMessage: state.auth.errorMessage,
-    currentUser: state.auth.currentUser != null,
     loading: state.auth.loading
   };
 };

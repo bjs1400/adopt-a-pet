@@ -5,11 +5,16 @@ import NavItem from "./NavItem";
 import * as actions from "../../store/actions/index";
 
 class Navbar extends Component {
+  componentDidMount() {
+    this.props.fetchTokens();
+  }
+
   handleSignOut = () => {
     this.props.onLogout();
   };
 
   render() {
+    let tokens = !this.props.tokens ? this.props.tokens : null;
     let direction = this.props.isAuthenticated ? "SIGN OUT" : "SIGN IN";
     let navlist = (
       <ul className="navbar-main">
@@ -24,7 +29,7 @@ class Navbar extends Component {
               fontWeight: "lighter"
             }}
           >
-            Tokens: 1000
+            Tokens: {tokens}
           </span>
         </NavItem>
         <NavItem clicked={this.handleSignOut}>{direction}</NavItem>
@@ -36,13 +41,15 @@ class Navbar extends Component {
 
 const mapDispatchToProps = dispatch => {
   return {
-    onLogout: () => dispatch(actions.logout())
+    onLogout: () => dispatch(actions.logout()),
+    fetchTokens: () => dispatch(actions.fetchTokens())
   };
 };
 
 const mapStateToProps = state => {
   return {
-    isAuthenticated: state.auth.isAuthenticated
+    isAuthenticated: state.auth.isAuthenticated,
+    tokens: state.tokens.tokens
   };
 };
 
