@@ -29,12 +29,15 @@ export const fetchStart = () => {
   };
 };
 
+<<<<<<< HEAD
 export const fetchItemStart = () => {
   return {
     type: "FETCH_ITEM_START"
   };
 };
 
+=======
+>>>>>>> 5f2d6c651aa7fcd236efb8ca10519e69bb7420ac
 export const noItemsFound = () => {
   return {
     type: "NO_ITEMS_FOUND"
@@ -63,10 +66,16 @@ export const fetchInventory = () => {
   return async dispatch => {
     await db
       .collection("store-inventory")
+<<<<<<< HEAD
       .where("ownerId", "==", "DNE")
       .get()
       .then(querySnapshot => {
         console.log(querySnapshot);
+=======
+      .where("ownerId", "==", null)
+      .get()
+      .then(querySnapshot => {
+>>>>>>> 5f2d6c651aa7fcd236efb8ca10519e69bb7420ac
         let itemsArray = [];
         querySnapshot.forEach(doc => {
           itemsArray.push({ ...doc.data(), itemId: doc.id });
@@ -108,7 +117,11 @@ export const fetchUsersItems = () => {
   return async dispatch => {
     let currentUser = await firebase.auth().currentUser;
     if (currentUser) {
+<<<<<<< HEAD
       let currentUserId = await firebase.auth().currentUser.uid;
+=======
+      var currentUserId = await firebase.auth().currentUser.uid;
+>>>>>>> 5f2d6c651aa7fcd236efb8ca10519e69bb7420ac
       db.collection("store-inventory")
         .where("ownerId", "==", `${currentUserId}`)
         .get()

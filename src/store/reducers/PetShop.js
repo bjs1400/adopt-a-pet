@@ -4,8 +4,12 @@ const initialState = {
   status: null, //fetching, foundItems, noItems
   usersItems: null,
   noItemsFound: false,
+<<<<<<< HEAD
   loading: true,
   itemFetched: null
+=======
+  loading: true
+>>>>>>> 5f2d6c651aa7fcd236efb8ca10519e69bb7420ac
 };
 // ADD FETCH FAIL LATER
 const shopReducer = (state = initialState, action) => {
@@ -23,8 +27,13 @@ const shopReducer = (state = initialState, action) => {
     case "RETURN_INVENTORY":
       return {
         ...state,
+<<<<<<< HEAD
         storeInventory: action.inventory,
         loading: false
+=======
+        loading: false,
+        storeInventory: action.inventory
+>>>>>>> 5f2d6c651aa7fcd236efb8ca10519e69bb7420ac
       };
     case "RETURN_ITEM":
       return {

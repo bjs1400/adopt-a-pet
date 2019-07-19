@@ -150,8 +150,12 @@ const mapStateToProps = state => {
   return {
     loading: state.store.loading,
     items: state.store.storeInventory,
+<<<<<<< HEAD
     item: state.store.item,
     itemFetched: state.store.itemFetched
+=======
+    item: state.store.item
+>>>>>>> 5f2d6c651aa7fcd236efb8ca10519e69bb7420ac
   };
 };
 
