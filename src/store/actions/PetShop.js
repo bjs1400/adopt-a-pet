@@ -123,7 +123,7 @@ export const fetchUsersItems = () => {
     if (currentUser) {
       let currentUserId = await firebase.auth().currentUser.uid;
       db.collection("store-inventory")
-        .where("ownerId", "==", `${currentUserId}`)
+        .where("ownerId", "==", currentUserId)
         .get()
         .then(querySnapshot => {
           let usersItems = [];

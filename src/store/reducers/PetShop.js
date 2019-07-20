@@ -43,7 +43,7 @@ const shopReducer = (state = initialState, action) => {
       return {
         ...state,
         loading: false,
-        noItemsFound: true
+        usersItems: null
       };
     default:
       return state;

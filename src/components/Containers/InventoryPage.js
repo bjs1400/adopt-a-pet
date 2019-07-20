@@ -12,32 +12,34 @@ class InventoryPage extends Component {
     this.props.fetchUsersItems();
   }
   render() {
-    let items = this.props.loading ? (
-      <>
-        <Spinner />
-        <Spinner />
-        <Spinner />
-      </>
-    ) : (
-      () => {
-        if (this.props.noItemsFound) {
-          return <h1>No Items Found</h1>;
-        } else {
-          return this.props.usersItems.map(item => (
-            <Card
-              key={item.id}
-              btnContent="View More"
-              btnClass="ui primary button"
-              description={item.description}
-              name={item.name}
-            />
-          ));
+    let items = this.props.loading
+      ? () => {
+          return (
+            <>
+              <Spinner />
+              <Spinner />
+              <Spinner />
+            </>
+          );
         }
-      }
-    );
+      : () => {
+          if (!this.props.usersItems) {
+            return <h1>No Items Found</h1>;
+          } else {
+            return this.props.usersItems.map(item => (
+              <Card
+                key={item.id}
+                btnContent="View More"
+                btnClass="ui primary button"
+                description={item.description}
+                name={item.name}
+              />
+            ));
+          }
+        };
     return (
       <div style={{ marginTop: "5%" }} className="shop-container">
-        {items}
+        {items()}
       </div>
     );
   }
