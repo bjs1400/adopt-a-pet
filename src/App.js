@@ -22,6 +22,7 @@ import * as actions from "./store/actions/index";
 class App extends Component {
   componentDidMount() {
     this.props.onCheckAuth();
+    this.props.fetchTokens();
   }
 
   render() {
@@ -51,7 +52,8 @@ class App extends Component {
 
 const mapDispatchToProps = dispatch => {
   return {
-    onCheckAuth: () => dispatch(actions.checkAuthState())
+    onCheckAuth: () => dispatch(actions.checkAuthState()),
+    fetchTokens: () => dispatch(actions.fetchTokens())
   };
 };
 

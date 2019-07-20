@@ -10,15 +10,21 @@ export const returnTokens = tokens => {
 
 export const fetchTokens = () => {
   return async dispatch => {
-    let currentUserId = await firebase.auth().currentUser.uid;
-    let tokenRef = db.collection("users").doc(currentUserId);
-    tokenRef
-      .get()
-      .then(doc => {
+    let currentUser = await firebase.auth().currentUser;
+    if (currentUser) {
+      let currentUserId = currentUser.uid;
+      let tokenRef = db.collection("users").doc(currentUserId);
+      tokenRef.onSnapshot(doc => {
         let tokenAmount = doc.data().tokens;
         dispatch(returnTokens(tokenAmount));
-      })
-      .catch(err => console.log(err));
+      });
+    }
+    // .get()
+    // .then(doc => {
+    //   let tokenAmount = doc.data().tokens;
+    //   dispatch(returnTokens(tokenAmount));
+    // })
+    // .catch(err => console.log(err));
   };
 };
 

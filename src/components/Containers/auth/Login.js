@@ -63,6 +63,7 @@ class Login extends Component {
                   id="email"
                   value={email}
                   onChange={this.handleChange("email")}
+                  type="email"
                 />
               </FormControl>
             </div>
@@ -74,6 +75,7 @@ class Login extends Component {
                   id="password"
                   value={password}
                   onChange={this.handleChange("password")}
+                  type="password"
                 />
               </FormControl>
             </div>

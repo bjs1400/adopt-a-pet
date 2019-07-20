@@ -66,12 +66,12 @@ class PetShop extends Component {
   };
 
   showItem = id => {
-    this.props.fetchItem(id);
     this.setState({
       show: true,
       shownItemId: id,
       zindex: 105
     });
+    this.props.fetchItem(id);
   };
   cancelHandler = () => {
     this.setState({ loading: true });
@@ -87,10 +87,8 @@ class PetShop extends Component {
 
   render() {
     let showItem = () => {
+      console.log(this.props.itemFetched);
       switch (this.props.itemFetched) {
-        case null: {
-          return null;
-        }
         case "itemFound":
           return (
             <ShowItem
@@ -100,12 +98,15 @@ class PetShop extends Component {
               purchase={this.purchaseHandler}
             />
           );
+        case null:
+          return null;
         case "loading":
           return <Spinner />;
         default:
           return null;
       }
     };
+    console.log(showItem);
 
     var itemsForSale = this.props.items ? (
       this.props.items.map(item => (
@@ -135,7 +136,7 @@ class PetShop extends Component {
           modalClosed={this.cancelHandler}
           zindex={this.state.zindex}
         >
-          {showItem}
+          {showItem()}
         </Modal>
         <h1>PET SHOP</h1>
         Welcome to the Pet Shop! Here, you can buy toys and food for your pet to
@@ -150,12 +151,8 @@ const mapStateToProps = state => {
   return {
     loading: state.store.loading,
     items: state.store.storeInventory,
-<<<<<<< HEAD
     item: state.store.item,
     itemFetched: state.store.itemFetched
-=======
-    item: state.store.item
->>>>>>> 5f2d6c651aa7fcd236efb8ca10519e69bb7420ac
   };
 };
 

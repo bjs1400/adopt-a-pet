@@ -7,7 +7,8 @@ const initialState = {
   currentUser: null,
   loading: false,
   isAuthenticated: false,
-  authRedirectPath: "/"
+  authRedirectPath: "/",
+  tokens: null
 };
 
 const authReducer = (state = initialState, action) => {
@@ -49,6 +50,11 @@ const authReducer = (state = initialState, action) => {
       return {
         ...state,
         errorMessage: null
+      };
+    case "RETURN_TOKENS":
+      return {
+        ...state,
+        tokens: action.tokens
       };
     default:
       return state;

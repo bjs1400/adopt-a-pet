@@ -193,6 +193,10 @@ NAVIGATION
 /********
 LANDING PAGE
 *********/
+.landing-page {
+  background-image: url('./');
+}
+
 .landing-container {
   width: 80%;
   text-align: center;

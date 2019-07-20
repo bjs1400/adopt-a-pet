@@ -29,25 +29,44 @@ export const authFail = errorMessage => {
   };
 };
 
+export const fetchTokens = userId => {
+  return dispatch => {
+    let tokenRef = db.collection("users").doc(userId);
+    tokenRef.onSnapshot(doc => {
+      let tokenAmount = doc.data().tokens;
+      dispatch(returnTokens(tokenAmount));
+    });
+  };
+};
+
+export const returnTokens = tokens => {
+  return {
+    type: "RETURN_TOKENS",
+    tokens: tokens
+  };
+};
+
 export const auth = (email, password) => {
   return async dispatch => {
     dispatch(authStart());
     firebase
       .auth()
       .createUserWithEmailAndPassword(email, password)
-      .then(res => {
-        console.log(res.user);
-        db.collection("users")
+      .then(async res => {
+        await db
+          .collection("users")
           .doc(res.user.uid)
           .set({
             userId: res.user.uid,
             email: email,
             tokens: 100
-          })
-          .then(res => {
-            history.push("/home");
-          })
-          .catch(err => console.log("Error adding new user to db: " + err));
+          });
+        let tokenRef = db.collection("users").doc(res.user.uid);
+        tokenRef.onSnapshot(doc => {
+          let tokenAmount = doc.data().tokens;
+          dispatch(returnTokens(tokenAmount));
+        });
+        history.push("/home");
       })
       .catch(err => {
         if (err.code === "auth/email-already-in-use") {
@@ -69,6 +88,11 @@ export const signIn = (email, password) => {
       .signInWithEmailAndPassword(email, password)
       .then(res => {
         dispatch(authSuccess(res.user));
+        let tokenRef = db.collection("users").doc(res.user.uid);
+        tokenRef.onSnapshot(doc => {
+          let tokenAmount = doc.data().tokens;
+          dispatch(returnTokens(tokenAmount));
+        });
         history.push("/home");
       })
       .catch(err => {

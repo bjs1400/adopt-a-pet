@@ -22,12 +22,12 @@ class RockPaperScissors extends Component {
 
   userWin = () => {
     alert("YOU WIN!");
-    this.props.updateTokens("add", 20);
+    this.props.updateTokens("add", 10);
     this.generateCompsChoice();
   };
 
   userLose = () => {
-    this.props.updateTokens("subtract", 20);
+    this.props.updateTokens("subtract", 5);
     this.generateCompsChoice();
   };
 
