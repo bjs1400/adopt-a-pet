@@ -4,6 +4,7 @@ import requireAuth from "../hoc/requireAuth";
 import { connect } from "react-redux";
 import Card from "../Card";
 import Spinner from "../UI/Spinner/Spinner";
+import Modal from "../UI/Modal/Modal";
 
 import * as actions from "../../store/actions/index";
 
@@ -11,6 +12,29 @@ class InventoryPage extends Component {
   componentDidMount() {
     this.props.fetchUsersItems();
   }
+
+  state = {
+    show: false,
+    shownItemId: null,
+    zindex: null
+  };
+
+  viewItem = id => {
+    this.setState({
+      show: true,
+      shownItemId: id,
+      zindex: 105
+    });
+  };
+
+  cancelHandler = () => {
+    this.setState({
+      show: false,
+      zindex: 40,
+      shownItemId: null
+    });
+  };
+
   render() {
     let items = this.props.loading
       ? () => {
@@ -29,18 +53,29 @@ class InventoryPage extends Component {
             return this.props.usersItems.map(item => (
               <Card
                 key={item.id}
-                btnContent="View More"
+                btnContent="Use"
                 btnClass="ui primary button"
                 description={item.description}
                 name={item.name}
+                btnClicked={() => this.viewItem(item.id)}
               />
             ));
           }
         };
     return (
-      <div style={{ marginTop: "5%" }} className="shop-container">
-        {items()}
-      </div>
+      <>
+        <h1>My Items</h1>
+        <Modal
+          show={this.state.show}
+          modalClosed={this.cancelHandler}
+          zindex={this.state.zindex}
+        >
+          {this.state.shownItemId}
+        </Modal>
+        <div style={{ marginTop: "5%" }} className="shop-container">
+          {items()}
+        </div>
+      </>
     );
   }
 }
