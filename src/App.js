@@ -1,7 +1,7 @@
 import React, { Component } from "react";
-import Layout from "../src/components/layout/Layout";
 import { Route } from "react-router-dom";
 import { connect } from "react-redux";
+import ProtectedRoute from "./ProtectedRoute";
 
 import LandingPage from "../src/components/Containers/Landing";
 import AdoptionCenter from "./components/Containers/AdoptionCenter/AdoptionCenter";
@@ -30,17 +30,21 @@ class App extends Component {
       <div class="container-main">
         <Route path="/" exact component={LandingPage} />
         <Route path="/adopt" component={AdoptionCenter} />
-        <Route path="/my-pets" component={MyPets} />
+        <ProtectedRoute path="/my-pets" component={MyPets} />
         <Route path="/pet-shop" component={PetShop} />
-        <Route path="/inventory" component={InventoryPage} />
+        <ProtectedRoute path="/inventory" component={InventoryPage} />
         <Route path="/login" component={Login} />
         <Route path="/signup" component={Register} />
-        <Route exact path="/earn-tokens" component={EarnTokens} />
+        <ProtectedRoute exact path="/earn-tokens" component={EarnTokens} />
         <Route path="/home" component={HomePage} />
-        <Route path="/adopt-confirm" component={AdoptConfirm} />
+        <ProtectedRoute path="/adopt-confirm" component={AdoptConfirm} />
         <Route path="/access-denied" component={accessDenied} />
-        <Route exact path="/earn-tokens/tic-tac-toe" component={TicTacToe} />
-        <Route
+        <ProtectedRoute
+          exact
+          path="/earn-tokens/tic-tac-toe"
+          component={TicTacToe}
+        />
+        <ProtectedRoute
           exact
           path="/earn-tokens/rock-paper-scissors"
           component={RockPaperScissors}

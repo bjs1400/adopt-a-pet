@@ -73,6 +73,7 @@ class PetShop extends Component {
     });
     this.props.fetchItem(id);
   };
+
   cancelHandler = () => {
     this.setState({ loading: true });
     this.setState({
@@ -96,6 +97,7 @@ class PetShop extends Component {
               itemName={this.props.item.name}
               description={this.props.item.description}
               purchase={this.purchaseHandler}
+              cancel={this.cancelHandler}
             />
           );
         case null:

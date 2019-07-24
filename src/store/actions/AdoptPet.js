@@ -55,6 +55,7 @@ export const fetchUsersPets = () => {
   return async dispatch => {
     dispatch(fetchStart());
     if (firebase.auth().currentUser) {
+      // if there is a user logged in
       var currentUserId = await firebase.auth().currentUser.uid;
       console.log(currentUserId);
       var ownersRef = db.collection("owners");
@@ -73,6 +74,8 @@ export const fetchUsersPets = () => {
           }
         })
         .catch(err => console.log(err));
+    } else {
+      dispatch(returnUsersPets(null));
     }
   };
 };

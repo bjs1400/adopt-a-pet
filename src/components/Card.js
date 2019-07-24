@@ -20,13 +20,15 @@ const Card = props => {
     </div>
   ) : null;
 
+  let classes = props.classes ? props.classes : null;
+
   return (
     <Fragment>
-      <div class="ui card display-card">
-        <div class="image">
+      <div className={`ui card display-card ${classes}`}>
+        <div className="image">
           <img src={props.imgsrc} alt="pup" />
         </div>
-        <div class="content">
+        <div className="content">
           <a className="header">{props.name}</a>
           {age}
           {description}

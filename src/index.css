@@ -156,7 +156,7 @@ LAYOUT/GRID
   left: 15%;
   top: 5%;
   box-sizing: border-box;
-  transition: all 0.3s ease-out;
+  transition: all 0.3s ease-out, zindex 0.1s linear;
   height: 90%;
   overflow: hidden;
 }
@@ -194,7 +194,7 @@ NAVIGATION
 LANDING PAGE
 *********/
 .landing-page {
-  background-image: url('./');
+  background-image: url("./");
 }
 
 .landing-container {
@@ -347,6 +347,7 @@ LANDING PAGE
   grid-column-start: 2;
   grid-column-end: 4;
   background-color: grey;
+  display: flex; 
 }
 
 .quote-box {

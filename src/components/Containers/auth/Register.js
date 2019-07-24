@@ -72,7 +72,7 @@ class Register extends Component {
                   id="email"
                   value={email}
                   onChange={this.handleChange("email")}
-                  type="email"
+                  type="email "
                 />
               </FormControl>
             </div>
@@ -83,7 +83,7 @@ class Register extends Component {
                   defaultValue="Password"
                   id="password"
                   value={password}
-                  onChange={this.handleChange("password")}
+                  onChang             e={this.handleChange("password")}
                   type="password"
                 />
               </FormControl>

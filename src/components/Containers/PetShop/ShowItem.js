@@ -24,6 +24,9 @@ const ShowItem = props => {
             >
               BUY NOW
             </Button>
+            <Button clicked={props.cancel} btnClass="ui red button">
+              CANCEL
+            </Button>
           </div>
         </div>
       </div>

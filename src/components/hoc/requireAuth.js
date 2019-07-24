@@ -1,25 +1,36 @@
 import React, { Component } from "react";
 import { Redirect } from "react-router-dom";
-import { connect } from "react-redux";
+import firebase from "../../config/firebaseConfig";
 
 export default ChildComponent => {
   class RequireAuth extends Component {
+    componentDidMount() {
+      let user = firebase.auth().currentUser;
+      console.log(user);
+      if (user) {
+        this.setState({
+          isAuthenticated: true
+        });
+      } else {
+        this.setState({
+          isAuthenticated: false
+        });
+      }
+    }
+    state = {
+      isAuthenticated: false
+    };
     render() {
-      var redirect = !this.props.isAuthenticated ? (
+      let redirect = this.state.isAuthenticated ? null : (
         <Redirect to="/access-denied" />
-      ) : null;
+      );
       return (
         <>
-          {redirect}
           <ChildComponent {...this.props} />
+          {redirect}
         </>
       );
     }
   }
-  const mapStateToProps = state => {
-    return {
-      isAuthenticated: state.auth.isAuthenticated
-    };
-  };
-  return connect(mapStateToProps)(RequireAuth);
+  return RequireAuth;
 };
