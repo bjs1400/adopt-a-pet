@@ -5,7 +5,8 @@ const initialState = {
   usersItems: null,
   noItemsFound: false,
   loading: true,
-  itemFetched: null
+  itemFetched: null,
+  specificItems: null
 };
 // ADD FETCH FAIL LATER
 const shopReducer = (state = initialState, action) => {
@@ -38,6 +39,11 @@ const shopReducer = (state = initialState, action) => {
         ...state,
         usersItems: action.items,
         loading: false
+      };
+    case "RETURN_SPECIFIC_ITEMS":
+      return {
+        ...state,
+        specificItems: action.specificItems
       };
     case "NO_ITEMS_FOUND":
       return {

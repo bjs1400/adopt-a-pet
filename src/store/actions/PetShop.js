@@ -9,6 +9,13 @@ export const returnItems = inventory => {
   };
 };
 
+export const returnSpecificItems = items => {
+  return {
+    type: 'RETURN_SPECIFIC_ITEMS',
+    specificItems: items
+  };
+};
+
 export const returnItem = item => {
   return {
     type: "RETURN_ITEM",
@@ -142,3 +149,29 @@ export const fetchUsersItems = () => {
     }
   };
 };
+
+export const fetchSpecificItems = (type) => {
+  return async dispatch => {
+    let currentUser = await firebase.auth().currentUser;
+    if (currentUser) {
+      let currentUserId = await firebase.auth().currentUser.uid;
+      db.collection("store-inventory")
+        .where("ownerId", "==", currentUserId).where('type', '==', type)
+        .get()
+        .then(querySnapshot => {
+          let items = [];
+          querySnapshot.forEach(doc => {
+            items.push(doc.data());
+          });
+          if (items.length > 0) {
+            dispatch(returnSpecificItems(items));
+          } else {
+            console.log('No items to display.');
+          }
+        })
+        .catch(err => console.log(err));
+    } else { // this needs to be fixed eventually 
+      history.push("/access-denied");
+    }
+  };
+}

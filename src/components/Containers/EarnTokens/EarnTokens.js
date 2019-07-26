@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import withNavbar from "../../hoc/withNavbar";
 import GamesCard from "../../GamesCard";
+import TTT from "../../../assets/images/tic-tac-toe.jpg";
+import RPS from "../../../assets/images/rock-paper-scissors.png";
 
 class EarnTokens extends Component {
   render() {
@@ -15,8 +17,16 @@ class EarnTokens extends Component {
           GAMES
         </h2>
         <div className="games-container">
-          <GamesCard link="/earn-tokens/tic-tac-toe" />
-          <GamesCard link="/earn-tokens/rock-paper-scissors" />
+          <GamesCard
+            link="/earn-tokens/tic-tac-toe"
+            imgsrc={TTT}
+            label="TIC TAC TOE"
+          />
+          <GamesCard
+            link="/earn-tokens/rock-paper-scissors"
+            imgsrc={RPS}
+            label="ROCK, PAPER, SCISSORS"
+          />
           <GamesCard />
           <GamesCard />
           <GamesCard />

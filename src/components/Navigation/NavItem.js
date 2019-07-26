@@ -5,10 +5,10 @@ const Navbar = props => {
   return (
     <li className="NavItem">
       <NavLink
+        activeClassName="active-link"
         onClick={props.clicked}
         className="nav-link"
         to={props.link}
-        activeClassName="current"
       >
         {props.children}
       </NavLink>

@@ -8,6 +8,7 @@ import Pup from "../../../assets/images/pup.jpg";
 import Bone from "../../../assets/images/bone.jpg";
 import Spinner from "../../UI/Spinner/Spinner";
 import Modal from "../../UI/Modal/Modal";
+import Button from "../../UI/Button";
 
 import * as actions from "../../../store/actions/index";
 
@@ -20,7 +21,8 @@ class MyPets extends Component {
   state = {
     show: false,
     zindex: 40,
-    quote: "Quote"
+    quote: "quote",
+    petName: null
   };
 
   cancelHandler = () => {
@@ -30,18 +32,22 @@ class MyPets extends Component {
     });
   };
 
-  useItem = (petId, type) => {
-    this.props.fetchSpecificItems(petId, type);
+  useItem = (petId, petName, type) => {
+    this.props.fetchSpecificItems(type);
     this.setState({
       show: true,
-      zindex: 105
+      zindex: 105,
+      petName: petName
     });
   };
+
+  beginUsing = () => {
+  }
 
   fetchRandomQuote = () => {};
 
   render() {
-    let myPets = this.props.loading
+    let myPets = this.props.loadingS
       ? () => (
           <>
             <Spinner />
@@ -77,8 +83,8 @@ class MyPets extends Component {
                   happiness={pet.happiness}
                   satiety={pet.satiety}
                   love={pet.love}
-                  play={() => this.useItem(pet.id, "play")}
-                  feed={() => this.useItem(pet.id, "feed")}
+                  play={() => this.useItem(pet.id, pet.name, "toy")}
+                  feed={() => this.useItem(pet.id, pet.name, "food")}
                 />
               );
             });
@@ -95,6 +101,26 @@ class MyPets extends Component {
       })
     );
 
+    let specificItems = !this.props.specificItems ? (
+      <Spinner />
+    ) : (
+      <>
+        <h1>SELECT AN ITEM BELOW TO USE ON YOUR PET</h1>
+        <div className="grname-container-use-item">
+          {this.props.specificItems.map(item => {
+            return (
+              <div className="item-box-use-item" onClick={this.beginUsing}>
+                <img src={Bone} alt="bone" />
+                <div className="item-name">{item.name}</div>
+              </div>
+            );
+          })}
+          <div className="pet-box-use-item" />
+        </div>
+        <Button btnClass="ui red buton">CANCEL</Button>
+      </>
+    );
+
     return (
       <>
         <h1>MY TRIBE</h1>
@@ -103,7 +129,7 @@ class MyPets extends Component {
           show={this.state.show}
           modalClosed={this.cancelHandler}
         >
-          {useItem}
+          {specificItems}
         </Modal>
         <div className="my-pets-container">
           {myPets()}
@@ -134,14 +160,16 @@ const mapStateToProps = state => {
   return {
     usersPets: state.adopt.usersPets,
     usersItems: state.store.usersItems,
-    loading: state.adopt.loading
+    loading: state.adopt.loading,
+    specificItems: state.store.specificItems
   };
 };
 
 const mapDispatchToProps = dispatch => {
   return {
     fetchUsersPets: () => dispatch(actions.fetchUsersPets()),
-    fetchUsersItems: () => dispatch(actions.fetchUsersItems())
+    fetchUsersItems: () => dispatch(actions.fetchUsersItems()),
+    fetchSpecificItems: type => dispatch(actions.fetchSpecificItems(type))
   };
 };
 

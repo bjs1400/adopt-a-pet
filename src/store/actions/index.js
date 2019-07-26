@@ -4,6 +4,7 @@ export {
   fetchInventory,
   fetchItem,
   purchaseItem,
-  fetchUsersItems
+  fetchUsersItems,
+  fetchSpecificItems
 } from "./PetShop";
 export { updateTokens, fetchTokens } from "./Tokens";

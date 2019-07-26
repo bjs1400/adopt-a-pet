@@ -12,8 +12,14 @@ body {
 }
 
 .container-main {
-  margin-top: 3%;
+  margin-top: 6%;
   padding: 2% 5%;
+}
+
+.page-container {
+  width: 70%;
+  height: auto;
+  padding: 4%;
 }
 
 .black-react-link {
@@ -24,6 +30,10 @@ body {
 /******************
 **** UI COMPONENTS
 *******/
+/* CARD */
+.display-card, .card {
+  box-shadow: 0px 11px 8px 0px rgba(0,0,0,0.75);
+}
 
 /* SPINNER */
 .loader {
@@ -134,6 +144,10 @@ LAYOUT/GRID
   font-family: "Ranchers", cursive;
 }
 
+.landing-container {
+font-family: 'Ranchers'; 
+}
+
 /**********
 * UTILITIES *
 **********/
@@ -164,21 +178,33 @@ LAYOUT/GRID
 /**********
 NAVIGATION
 */
+.nav-link {
+  font-size: large; 
+  font-weight: lighter; 
+}
+
 .Toolbar {
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   display: grid;
-  grid-template-columns: 1fr 2fr;
+  grid-template-columns: 17% 1fr;
   align-items: center;
+  /* display: flex;
+  justify-content: space-between;
+  align-items: center;  */
   padding: 1%;
-  background-color: grey;
+  background-color: #f9d300;
+  box-shadow: 0px 11px 15px 0px rgba(0,0,0,0.75);
+  /* box-shadow: 0px 3px 24px 0px rgba(0,0,0,1); */
+  margin-bottom: 20%; 
 }
 
 .navbar-main {
   display: flex;
-  justify-content: space-between;
+  justify-content: space-around;
+  align-items: center;
   list-style: none;
 }
 .nav-link {
@@ -358,6 +384,38 @@ LANDING PAGE
   text-align: center;
 }
 
+.grid-container-use-item {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr) 2fr;
+  grid-template-rows: repeat(2, 1fr);
+  grid-column-gap: 2px;
+  grid-row-gap: 2px;
+  width: 80%;
+  padding: 1%; 
+}
+
+.grid-container-use-item .item-box-use-item {
+  grid-column: span 1;
+  grid-row: span 1; 
+}
+
+.pet-box-use-item {
+  grid-column-start: 4;
+  grid-row-start: 1;
+  grid-row-end: 3;
+  background-color: grey;
+  width: 100%;
+  height: auto; 
+}
+
+.item-box-use-item {
+  overflow: hidden; 
+}
+
+.item-box-use-item {
+  
+}
+
 /* PET BOX */
 
 .my-pet-box {
@@ -408,24 +466,33 @@ LANDING PAGE
 
 .games-card {
   width: 100%;
-  height: 200px;
+  max-height: 300px;
   background-color: grey;
-  border: 5px solid black;
-  border-radius: 10px;
   position: relative;
-  box-shadow: 1% 2% rgba(0, 0, 0, 0.8);
+  border: 1px solid black;
+  box-shadow: 4px 6px 20px 2px rgba(0,0,0,1);
+  /* box-shadow: 0px 11px 15px 0px rgba(0,0,0,0.75); */
   text-align: center;
 }
 
-.games-card:after {
+.games-card img {
+  width: 100%;
+  height: auto;
+}
+.gc-img-container {
+  width: 100%;
+  overflow: hidden;
+  max-height: 250px; 
+}
+.games-card-label {
   border: 3px solid black;
   border-radius: 5%;
-  width: 60%;
+  width: 65%;
   background-color: white;
   padding: 4%;
-  content: "TIC TAC TOE";
+  /*content: ' ' */
   text-align: center;
-  height: 26%;
+  height: auto;
   position: absolute;
   top: 85%;
   left: -8%;
@@ -436,9 +503,8 @@ LANDING PAGE
   transform: scale(1.2);
   cursor: pointer;
   border: 3px solid black;
-  box-shadow: 3% 4% rgba(0, 0, 0, 0.8);
 }
-.games-card:hover::after {
+.games-card:hover .games-card-label {
   display: none;
 }
 .game-container {

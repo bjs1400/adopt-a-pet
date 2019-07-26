@@ -11,16 +11,12 @@ const PetBox = props => {
       <div className="left-side">
         <Card imgsrc={props.imgsrc} name={props.name} age={props.age} />
         <div className="feed-play">
-          <Link to="/">
-            <Button btnClass="ui green button" clicked={props.feed}>
-              Feed
-            </Button>
-          </Link>
-          <Link to="/">
-            <Button btnClass="ui blue button" clicked={props.play}>
-              Play With
-            </Button>
-          </Link>
+          <Button btnClass="ui green button" clicked={props.feed}>
+            Feed
+          </Button>
+          <Button btnClass="ui blue button" clicked={props.play}>
+            Play With
+          </Button>
         </div>
       </div>
       <div className="right-side">

@@ -21,7 +21,7 @@ class Navbar extends Component {
         <NavItem link="/inventory">
           <span
             style={{
-              color: "gold",
+              color: "goldenrod",
               fontWeight: "lighter"
             }}
           >

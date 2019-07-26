@@ -3,6 +3,9 @@ import { connect } from "react-redux";
 import withNavbar from "../hoc/withNavbar";
 import { Redirect } from "react-router-dom";
 import GamesCard from "../GamesCard";
+import Pup from "../../assets/images/pup.jpg";
+import TTT from "../../assets/images/tic-tac-toe.jpg";
+import Bone from "../../assets/images/bone.jpg";
 
 // if user doesn't exist, they are redirected to '/'. Otherwise, show them this content
 
@@ -21,9 +24,9 @@ class HomePage extends Component {
         <h2>Choose where you'd like to go below: </h2>
         <h1>I WANT TO...</h1>
         <div className="games-container">
-          <GamesCard link="/adopt">ADOPT</GamesCard>
-          <GamesCard link="/earn-tokens">PLAY GAMES</GamesCard>
-          <GamesCard link="/pet-shop">SHOP FOR MY PETS</GamesCard>
+          <GamesCard link="/adopt" imgsrc={Pup} label="ADOPT" />
+          <GamesCard link="/earn-tokens" imgsrc={TTT} label="PLAY GAMES" />
+          <GamesCard link="/pet-shop" imgsrc={Bone} label="SHOP FOR MY PETS" />
         </div>
       </>
     );
