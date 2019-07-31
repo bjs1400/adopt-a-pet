@@ -62,38 +62,29 @@ class ShowPet extends Component {
       <div className="show-pet-container">
         <Card imgsrc={Pup} name={this.props.name} age={this.props.age} />
         <div className="attribute-box">
-          <div className="attributes">
-            <h3>Attributes</h3>
-            <div className="attribute">
-              <em>Name:</em> {this.props.id}
+          <div className="attributes" style={{ paddingBottom: "40px" }}>
+            <h3 style={{ fontSize: "40px", marginBottom: "20px" }}>
+              Attributes
+            </h3>
+            <div className="attribute-div">
+              <span className="attribute">Name:</span> {this.props.name}
             </div>
-            <div className="attribute">
-              <em>Age:</em> {this.props.id}
+            <div className="attribute-div">
+              <span className="attribute">Age:</span> {this.props.age} months
             </div>
-            <div className="attribute">
-              <em>Breed:</em> {this.props.id}
-            </div>
-            <div className="attribute">
-              <em>Hobbies:</em> {this.props.id}
-            </div>
-          </div>
-          <div className="qanda">
-            <h3>QandA</h3>
-            <div className="attribute">
-              <em>My Dream Vacation is...:</em> {this.props.id}
+            <div className="attribute-div">
+              <span className="attribute">Description:</span>{" "}
+              {this.props.description}
             </div>
           </div>
-          <div className="buttons">
+          <div className="buttons" style={{ marginTop: "5%" }}>
             <Button
               btnClass="big ui green button"
               clicked={this.props.adoptContinue}
             >
               ADOPT
             </Button>
-            <Button
-              btnClass="big ui inverted red button"
-              clicked={this.props.hidePet}
-            >
+            <Button btnClass="big ui red button" clicked={this.props.hidePet}>
               CANCEL
             </Button>
           </div>

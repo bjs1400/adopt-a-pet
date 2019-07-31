@@ -83,7 +83,7 @@ export const fetchUsersPets = () => {
 export const assignPetToUser = petId => {
   return async dispatch => {
     var currentUserId = await firebase.auth().currentUser.uid;
-    var petRef = db.collection("pets").doc(`${petId}`);
+    var petRef = db.collection("pets").doc(petId);
     petRef
       .get()
       .then(doc => {

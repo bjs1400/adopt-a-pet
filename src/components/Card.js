@@ -29,7 +29,7 @@ const Card = props => {
           <img src={props.imgsrc} alt="pup" />
         </div>
         <div className="content">
-          <a className="header">{props.name}</a>
+          <div className="header">{props.name}</div>
           {age}
           {description}
         </div>

@@ -16,6 +16,10 @@ body {
   padding: 2% 5%;
 }
 
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Ranchers', cursive; 
+}
+
 .page-container {
   width: 70%;
   height: auto;
@@ -181,6 +185,12 @@ NAVIGATION
 .nav-link {
   font-size: large; 
   font-weight: lighter; 
+  text-decoration: none;
+  color: black;
+  z-index: 499;
+}
+.NavItem {
+  z-index: 499;
 }
 
 .Toolbar {
@@ -206,10 +216,7 @@ NAVIGATION
   justify-content: space-around;
   align-items: center;
   list-style: none;
-}
-.nav-link {
-  text-decoration: none;
-  color: black;
+  z-index: 499;
 }
 .logo-link {
   text-decoration: none;
@@ -268,7 +275,7 @@ LANDING PAGE
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   grid-column-gap: 2px;
-  grid-row-gap: 5px;
+  grid-row-gap: 25px;
   padding: 2%;
 }
 .pet-square {
@@ -288,6 +295,17 @@ LANDING PAGE
 
 .display-card {
   z-index: 50;
+} 
+
+.attribute-div {
+  font-size: 20px;
+  font-weight: lighter;  
+}
+
+.attribute {
+  margin-right: 10px;
+  font-size: 30px;
+  font-weight: lighter; 
 }
 
 /* SHOW PET */

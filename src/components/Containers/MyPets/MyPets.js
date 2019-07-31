@@ -19,8 +19,8 @@ class MyPets extends Component {
     this.fetchRandomQuote();
   }
   state = {
+    zindex: -1,
     show: false,
-    zindex: 40,
     quote: "quote",
     petName: null
   };
@@ -28,21 +28,20 @@ class MyPets extends Component {
   cancelHandler = () => {
     this.setState({
       show: false,
-      zindex: 40
+      zindex: -1
     });
   };
 
   useItem = (petId, petName, type) => {
-    this.props.fetchSpecificItems(type);
     this.setState({
+      zindex: 500,
       show: true,
-      zindex: 105,
       petName: petName
     });
+    this.props.fetchSpecificItems(type);
   };
 
-  beginUsing = () => {
-  }
+  beginUsing = () => {};
 
   fetchRandomQuote = () => {};
 
@@ -117,13 +116,15 @@ class MyPets extends Component {
           })}
           <div className="pet-box-use-item" />
         </div>
-        <Button btnClass="ui red buton">CANCEL</Button>
+        <Button clicked={this.cancelHandler} btnClass="ui red button">
+          CANCEL
+        </Button>
       </>
     );
 
     return (
       <>
-        <h1>MY TRIBE</h1>
+        <h1 style={{ marginBottom: "35px" }}>MY TRIBE</h1>
         <Modal
           zindex={this.state.zindex}
           show={this.state.show}

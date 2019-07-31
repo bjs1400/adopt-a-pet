@@ -12,6 +12,7 @@ import Pup from "../../../assets/images/pup.jpg";
 import * as actions from "../../../store/actions/index";
 
 import history from "../../../history";
+import { nullLiteral } from "../../../../node_modules/@babel/types";
 
 class AdoptionCenter extends Component {
   componentDidMount() {
@@ -21,8 +22,13 @@ class AdoptionCenter extends Component {
   state = {
     zindex: 20,
     show: false,
-    shownPetId: null, // id property
-    showAdoptionForm: false
+    shownPet: {
+      name: null,
+      age: null,
+      desc: null
+    },
+    showAdoptionForm: false,
+    currPetId: null
     // pets: [
     //   {
     //     name: "Brittany",
@@ -83,20 +89,22 @@ class AdoptionCenter extends Component {
     });
   };
 
-  viewPet = id => {
+  viewPet = (id, name, age, desc) => {
     this.setState({
+      currPetId: id,
       zindex: 500,
       show: true,
-      shownPetId: id,
+      shownPet: { name, age, desc },
       showAdoptionForm: false
     }); // show our modal
   };
 
   adoptContinue = id => {
-    this.props.assignPetToUser(id);
-    this.setState({
-      show: false
-    });
+    let res = window.confirm("Are you sure you want to adopt this pet?");
+    if (res) {
+      this.props.assignPetToUser(id);
+    }
+    this.cancelHandler();
   };
 
   render() {
@@ -114,8 +122,11 @@ class AdoptionCenter extends Component {
               key={pet.id}
               btnContent="Choose Me!"
               btnClass="ui button primary"
+              description
               imgsrc={Pup}
-              btnClicked={() => this.viewPet(pet.petId)}
+              btnClicked={() =>
+                this.viewPet(pet.id, pet.name, pet.age, pet.description)
+              }
               name={pet.name}
               age={pet.age}
               description={pet.description}
@@ -125,7 +136,7 @@ class AdoptionCenter extends Component {
       })
     );
 
-    let heading = !this.props.isAuthenticated ? (
+    let heading = !this.props.isAuthenticated ? ( // fix this later
       <>
         <Link to="/signup">
           <h1>SIGN UP</h1>
@@ -144,11 +155,11 @@ class AdoptionCenter extends Component {
       <Spinner />
     ) : (
       <ShowPet
-        name="Test Name"
-        age="12"
-        adoptContinue={() => this.adoptContinue(this.state.shownPetId)}
+        name={this.state.shownPet.name}
+        age={this.state.shownPet.age}
+        description={this.state.shownPet.desc}
+        adoptContinue={() => this.adoptContinue(this.state.currPetId)}
         hidePet={this.cancelHandler}
-        id={this.state.shownPetId}
       />
     );
 
