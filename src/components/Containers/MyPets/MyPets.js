@@ -41,12 +41,13 @@ class MyPets extends Component {
     this.props.fetchSpecificItems(type);
   };
 
-  beginUsing = () => {
+  beginUsing = (itemId, petId) => {
     let res = window.confirm(
       `Are you sure you want to use this item on ${this.state.petName}?`
     );
     if (res) {
       //use item on pet
+      this.props.useItemOnPet(itemId, petId);
       alert("You used this item!");
     }
     this.cancelHandler();
@@ -104,7 +105,14 @@ class MyPets extends Component {
     ) : (
       this.props.usersItems.map(item => {
         return (
-          <Card classes="pets-inventory-item" name={item.name} imgsrc={Bone} />
+          <div className="item-box-use-item">
+            <img
+              style={{ width: "100%", height: "auto" }}
+              src={Bone}
+              alt="bone"
+            />
+            <div className="item-name">{item.name}</div>
+          </div>
         );
       })
     );
@@ -117,7 +125,10 @@ class MyPets extends Component {
         <div className="grid-container-use-item">
           {this.props.specificItems.map(item => {
             return (
-              <div className="item-box-use-item" onClick={this.beginUsing}>
+              <div
+                className="item-box-use-item"
+                onClick={() => this.beginUsing(item.id)}
+              >
                 <img
                   style={{ width: "100%", height: "auto" }}
                   src={Bone}
@@ -139,7 +150,7 @@ class MyPets extends Component {
 
     return (
       <>
-        <h1 style={{ marginBottom: "35px" }}>MY TRIBE</h1>
+        <h1 style={{ marginBottom: "25px" }}>MY TRIBE</h1>
         <Modal
           zindex={this.state.zindex}
           show={this.state.show}
@@ -153,7 +164,12 @@ class MyPets extends Component {
             <h1>QUOTE OF THE DAY: </h1>
             {this.state.quote}
           </div>
-          <div className="inventory-box-my-pets">{inventoryItems}</div>
+          <div>
+            <h2>My Inventory</h2>
+            <div className="grid-container-use-item inventory-box-my-pets">
+              {inventoryItems}
+            </div>
+          </div>
         </div>
         {this.props.usersPets ? (
           <h2

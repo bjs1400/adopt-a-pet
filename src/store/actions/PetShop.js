@@ -11,7 +11,7 @@ export const returnItems = inventory => {
 
 export const returnSpecificItems = items => {
   return {
-    type: 'RETURN_SPECIFIC_ITEMS',
+    type: "RETURN_SPECIFIC_ITEMS",
     specificItems: items
   };
 };
@@ -46,6 +46,14 @@ export const noItemsFound = () => {
   return {
     type: "NO_ITEMS_FOUND"
   };
+};
+
+export const useItemOnPet = (itemId, petId) => {
+  // find item
+  // make ownerId of item = "DNE"
+  // find pet
+  // increase the appropriate love, datiety, or happiness for pet
+  // update pet quote :)
 };
 
 export const fetchItem = id => {
@@ -150,13 +158,14 @@ export const fetchUsersItems = () => {
   };
 };
 
-export const fetchSpecificItems = (type) => {
+export const fetchSpecificItems = type => {
   return async dispatch => {
     let currentUser = await firebase.auth().currentUser;
     if (currentUser) {
       let currentUserId = await firebase.auth().currentUser.uid;
       db.collection("store-inventory")
-        .where("ownerId", "==", currentUserId).where('type', '==', type)
+        .where("ownerId", "==", currentUserId)
+        .where("type", "==", type)
         .get()
         .then(querySnapshot => {
           let items = [];
@@ -166,12 +175,13 @@ export const fetchSpecificItems = (type) => {
           if (items.length > 0) {
             dispatch(returnSpecificItems(items));
           } else {
-            console.log('No items to display.');
+            console.log("No items to display.");
           }
         })
         .catch(err => console.log(err));
-    } else { // this needs to be fixed eventually 
+    } else {
+      // this needs to be fixed eventually
       history.push("/access-denied");
     }
   };
-}
+};
