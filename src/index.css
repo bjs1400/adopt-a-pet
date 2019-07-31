@@ -410,11 +410,22 @@ LANDING PAGE
   grid-row-gap: 2px;
   width: 80%;
   padding: 1%; 
+  margin: 0 auto;
 }
 
 .grid-container-use-item .item-box-use-item {
   grid-column: span 1;
   grid-row: span 1; 
+  /* border: 2px solid black;  */
+  padding: 2%;
+  box-shadow: 4px 6px 20px 2px rgba(0,0,0,1);
+}
+
+.grid-container-use-item .item-box-use-item:hover {
+  cursor: pointer;
+  box-shadow: 2px 2px 5px 1px rgba(0,0,0,1);  
+  transform: scale(1.2);
+  transition: all 0.4s; 
 }
 
 .pet-box-use-item {

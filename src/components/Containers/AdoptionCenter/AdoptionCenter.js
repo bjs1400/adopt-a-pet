@@ -7,13 +7,8 @@ import Card from "../../Card";
 import Modal from "../../UI/Modal/Modal";
 import ShowPet from "./ShowPet";
 import Spinner from "../../UI/Spinner/Spinner";
-import AdoptConfirm from "./AdoptConfirm";
 import Pup from "../../../assets/images/pup.jpg";
 import * as actions from "../../../store/actions/index";
-
-import history from "../../../history";
-import { nullLiteral } from "../../../../node_modules/@babel/types";
-
 class AdoptionCenter extends Component {
   componentDidMount() {
     this.props.fetchPets();

@@ -41,7 +41,16 @@ class MyPets extends Component {
     this.props.fetchSpecificItems(type);
   };
 
-  beginUsing = () => {};
+  beginUsing = () => {
+    let res = window.confirm(
+      `Are you sure you want to use this item on ${this.state.petName}?`
+    );
+    if (res) {
+      //use item on pet
+      alert("You used this item!");
+    }
+    this.cancelHandler();
+  };
 
   fetchRandomQuote = () => {};
 
@@ -105,18 +114,24 @@ class MyPets extends Component {
     ) : (
       <>
         <h1>SELECT AN ITEM BELOW TO USE ON YOUR PET</h1>
-        <div className="grname-container-use-item">
+        <div className="grid-container-use-item">
           {this.props.specificItems.map(item => {
             return (
               <div className="item-box-use-item" onClick={this.beginUsing}>
-                <img src={Bone} alt="bone" />
+                <img
+                  style={{ width: "100%", height: "auto" }}
+                  src={Bone}
+                  alt="bone"
+                />
                 <div className="item-name">{item.name}</div>
               </div>
             );
           })}
-          <div className="pet-box-use-item" />
+          <div className="pet-box-use-item">
+            <Card imgsrc={Pup} name={this.state.petName} />
+          </div>
         </div>
-        <Button clicked={this.cancelHandler} btnClass="ui red button">
+        <Button clicked={this.cancelHandler} btnClass="ui large red button">
           CANCEL
         </Button>
       </>
