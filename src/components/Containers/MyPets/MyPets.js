@@ -18,11 +18,14 @@ class MyPets extends Component {
     this.props.fetchUsersItems();
     this.fetchRandomQuote();
   }
+  
   state = {
     zindex: -1,
     show: false,
     quote: "quote",
-    petName: null
+    petName: null,
+    petId: null,
+    type: null
   };
 
   cancelHandler = () => {
@@ -32,11 +35,13 @@ class MyPets extends Component {
     });
   };
 
-  useItem = (petId, petName, type) => {
+  useItem = (petName, petId, type) => {
     this.setState({
       zindex: 500,
       show: true,
-      petName: petName
+      petName: petName,
+      petId: petId,
+      type: type
     });
     this.props.fetchSpecificItems(type);
   };
@@ -47,7 +52,7 @@ class MyPets extends Component {
     );
     if (res) {
       //use item on pet
-      this.props.useItemOnPet(itemId, petId);
+      this.props.useItemOnPet(itemId, petId, this.state.type);
       alert("You used this item!");
     }
     this.cancelHandler();
@@ -92,43 +97,65 @@ class MyPets extends Component {
                   happiness={pet.happiness}
                   satiety={pet.satiety}
                   love={pet.love}
-                  play={() => this.useItem(pet.id, pet.name, "toy")}
-                  feed={() => this.useItem(pet.id, pet.name, "food")}
+                  play={() => this.useItem(pet.name, pet.id, "toy")}
+                  feed={() => this.useItem(pet.name, pet.id, "food")}
                 />
               );
             });
           }
         };
 
-    let inventoryItems = !this.props.usersItems ? (
-      <Spinner />
-    ) : (
-      this.props.usersItems.map(item => {
-        return (
-          <div className="item-box-use-item">
-            <img
-              style={{ width: "100%", height: "auto" }}
-              src={Bone}
-              alt="bone"
-            />
-            <div className="item-name">{item.name}</div>
-          </div>
-        );
-      })
-    );
-
-    let specificItems = !this.props.specificItems ? (
-      <Spinner />
-    ) : (
-      <>
-        <h1>SELECT AN ITEM BELOW TO USE ON YOUR PET</h1>
-        <div className="grid-container-use-item">
-          {this.props.specificItems.map(item => {
-            return (
-              <div
-                className="item-box-use-item"
-                onClick={() => this.beginUsing(item.id)}
+    let specificItems = () => {
+      switch (this.props.specificItems) {
+        case "loading":
+          return <Spinner />;
+        case null:
+          return "No Items to Display";
+        default:
+          return (
+            <>
+              <h1>SELECT AN ITEM BELOW TO USE ON YOUR PET</h1>
+              <div className="grid-container-use-item">
+                {this.props.specificItems.map(item => {
+                  return (
+                    <div
+                      className="item-box-use-item"
+                      onClick={() => this.beginUsing(item.id, this.state.petId)}
+                    >
+                      <img
+                        style={{ width: "100%", height: "auto" }}
+                        src={Bone}
+                        alt="bone"
+                      />
+                      <div className="item-name">{item.name}</div>
+                    </div>
+                  );
+                })}
+                <div className="pet-box-use-item">
+                  <Card imgsrc={Pup} name={this.state.petName} />
+                </div>
+              </div>
+              <Button
+                clicked={this.cancelHandler}
+                btnClass="ui large red button"
               >
+                CANCEL
+              </Button>
+            </>
+          );
+      }
+    };
+
+    let inventoryItems = () => {
+      switch (this.props.usersItems) {
+        case "empty":
+          return "No Items to show";
+        case "loading":
+          return <Spinner />;
+        default:
+          return this.props.usersItems.map(item => {
+            return (
+              <div className="item-box-use-item">
                 <img
                   style={{ width: "100%", height: "auto" }}
                   src={Bone}
@@ -137,16 +164,11 @@ class MyPets extends Component {
                 <div className="item-name">{item.name}</div>
               </div>
             );
-          })}
-          <div className="pet-box-use-item">
-            <Card imgsrc={Pup} name={this.state.petName} />
-          </div>
-        </div>
-        <Button clicked={this.cancelHandler} btnClass="ui large red button">
-          CANCEL
-        </Button>
-      </>
-    );
+          });
+      }
+    };
+
+
 
     return (
       <>
@@ -156,7 +178,7 @@ class MyPets extends Component {
           show={this.state.show}
           modalClosed={this.cancelHandler}
         >
-          {specificItems}
+          {specificItems()}
         </Modal>
         <div className="my-pets-container">
           {myPets()}
@@ -167,7 +189,7 @@ class MyPets extends Component {
           <div>
             <h2>My Inventory</h2>
             <div className="grid-container-use-item inventory-box-my-pets">
-              {inventoryItems}
+              {inventoryItems()}
             </div>
           </div>
         </div>
@@ -201,7 +223,9 @@ const mapDispatchToProps = dispatch => {
   return {
     fetchUsersPets: () => dispatch(actions.fetchUsersPets()),
     fetchUsersItems: () => dispatch(actions.fetchUsersItems()),
-    fetchSpecificItems: type => dispatch(actions.fetchSpecificItems(type))
+    fetchSpecificItems: type => dispatch(actions.fetchSpecificItems(type)),
+    useItemOnPet: (itemId, petId, type) =>
+      dispatch(actions.useItemOnPet(itemId, petId, type))
   };
 };
 

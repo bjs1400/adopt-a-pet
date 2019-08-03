@@ -2,7 +2,7 @@ const initialState = {
   storeInventory: null,
   item: null,
   status: null, //fetching, foundItems, noItems
-  usersItems: null,
+  usersItems: "loading",
   noItemsFound: false,
   loading: true,
   itemFetched: null,
@@ -19,7 +19,8 @@ const shopReducer = (state = initialState, action) => {
     case "FETCH_START":
       return {
         ...state,
-        loading: true
+        loading: true,
+        usersItems: "loading"
       };
     case "RETURN_INVENTORY":
       return {
@@ -44,12 +45,6 @@ const shopReducer = (state = initialState, action) => {
       return {
         ...state,
         specificItems: action.specificItems
-      };
-    case "NO_ITEMS_FOUND":
-      return {
-        ...state,
-        loading: false,
-        usersItems: null
       };
     default:
       return state;

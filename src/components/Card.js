@@ -24,7 +24,10 @@ const Card = props => {
 
   return (
     <Fragment>
-      <div className={`ui card display-card ${classes}`}>
+      <div
+        style={{ boxShadow: "4px 6px 20px 2px rgba(0,0,0,1)" }}
+        className={`ui card display-card with-shadow ${classes}`}
+      >
         <div className="image">
           <img src={props.imgsrc} alt="pup" />
         </div>

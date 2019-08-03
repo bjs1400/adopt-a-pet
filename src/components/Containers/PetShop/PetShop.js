@@ -17,8 +17,8 @@ class PetShop extends Component {
 
   state = {
     show: false,
-    shownItemId: null, // id
-    zindex: 40
+    shownItem: null, // id
+    zindex: -1
     // items: [
     //   {
     //     name: "Frisbee",
@@ -65,56 +65,67 @@ class PetShop extends Component {
     // ]
   };
 
-  showItem = id => {
+  showItem = item => {
+    // item is an object
     this.setState({
       show: true,
-      shownItemId: id,
-      zindex: 105
+      shownItem: item,
+      zindex: 500
     });
-    this.props.fetchItem(id);
   };
 
   cancelHandler = () => {
     this.setState({ loading: true });
     this.setState({
       show: false,
-      zindex: 40
+      zindex: -1
     });
   };
 
   purchaseHandler = () => {
-    this.props.purchaseItem(this.state.shownItemId); // item.id
+    this.props.purchaseItem(this.state.shownItem.id); // item.id
   };
 
   render() {
-    let showItem = () => {
-      console.log(this.props.itemFetched);
-      switch (this.props.itemFetched) {
-        case "itemFound":
-          return (
-            <ShowItem
-              price={this.props.item.price}
-              itemName={this.props.item.name}
-              description={this.props.item.description}
-              purchase={this.purchaseHandler}
-              cancel={this.cancelHandler}
-            />
-          );
-        case null:
-          return null;
-        case "loading":
-          return <Spinner />;
-        default:
-          return null;
-      }
-    };
-    console.log(showItem);
+    // let showItem = () => {
+    //   console.log(this.props.itemFetched);
+    //   switch (this.props.itemFetched) {
+    //     case "itemFound":
+    //       return (
+    //         <ShowItem
+    //           price={this.props.item.price}
+    //           itemName={this.props.item.name}
+    //           description={this.props.item.description}
+    //           purchase={this.purchaseHandler}
+    //           cancel={this.cancelHandler}
+    //         />
+    //       );
+    //     case null:
+    //       return null;
+    //     case "loading":
+    //       return <Spinner />;
+    //     default:
+    //       return null;
+    //   }
+    // };
+    // console.log(showItem);
+    let displayItem = this.state.shownItem ? (
+      <ShowItem
+        price={this.state.shownItem.price}
+        itemName={this.state.shownItem.name}
+        description={this.state.shownItem.description}
+        purchase={this.purchaseHandler}
+        cancel={this.cancelHandler}
+      />
+    ) : (
+      <Spinner />
+    );
 
-    var itemsForSale = this.props.items ? (
+    let itemsForSale = this.props.items ? (
       this.props.items.map(item => (
         <div key={item.id} className="shop-item">
           <Card
-            btnClicked={() => this.showItem(item.id)}
+            btnClicked={() => this.showItem({ ...item })}
             btnContent="View More"
             btnClass="ui primary button"
             imgsrc={Bone}
@@ -138,7 +149,7 @@ class PetShop extends Component {
           modalClosed={this.cancelHandler}
           zindex={this.state.zindex}
         >
-          {showItem()}
+          {displayItem}
         </Modal>
         <h1>PET SHOP</h1>
         Welcome to the Pet Shop! Here, you can buy toys and food for your pet to

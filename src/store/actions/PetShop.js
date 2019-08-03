@@ -48,12 +48,35 @@ export const noItemsFound = () => {
   };
 };
 
-export const useItemOnPet = (itemId, petId) => {
-  // find item
-  // make ownerId of item = "DNE"
-  // find pet
-  // increase the appropriate love, datiety, or happiness for pet
-  // update pet quote :)
+export const useItemOnPet = (itemId, petId, type) => {
+  return dispatch => {
+    // find item
+    let newId = itemId.slice(1);
+    let itemRef = db.collection("store-inventory").doc(newId);
+
+    console.log(newId);
+    itemRef
+      .update({
+        ownerId: "DNE"
+      })
+      .then(() => {
+        let petRef = db.collection("pets").doc(petId);
+        if (type === "toy") {
+          petRef.update({
+            happiness: firebase.firestore.FieldValue.increment(10),
+            love: firebase.firestore.FieldValue.increment(10)
+          });
+        } else if (type === "food") {
+          petRef.update({
+            satiety: firebase.firestore.FieldValue.increment(10)
+          });
+        }
+        console.log("Updated!");
+        history.push("/my-pets");
+      })
+      .catch(err => console.log("failed to update document" + err));
+    // update pet quote :)
+  };
 };
 
 export const fetchItem = id => {
@@ -106,6 +129,7 @@ export const purchaseItem = id => {
       .then(querySnapshot => {
         querySnapshot.forEach(doc => {
           let priceOfItem = doc.data().price;
+          console.log(priceOfItem);
           let itemRef = db.collection("store-inventory").doc(doc.id);
           itemRef
             .update({
@@ -116,11 +140,10 @@ export const purchaseItem = id => {
               let userRef = db.collection("users").doc(currentUserId);
               userRef.get().then(doc => {
                 let newTokens = doc.data().tokens - priceOfItem;
-                userRef.set(
+                userRef.update(
                   {
                     tokens: newTokens
-                  },
-                  { merge: true }
+                  }
                 );
               });
             })
@@ -134,6 +157,7 @@ export const purchaseItem = id => {
 export const fetchUsersItems = () => {
   // create an auth middleware???
   return async dispatch => {
+    dispatch(fetchStart());
     let currentUser = await firebase.auth().currentUser;
     if (currentUser) {
       let currentUserId = await firebase.auth().currentUser.uid;
@@ -148,7 +172,7 @@ export const fetchUsersItems = () => {
           if (usersItems.length > 0) {
             dispatch(returnUsersItems(usersItems));
           } else {
-            dispatch(noItemsFound());
+            dispatch(returnUsersItems("empty"));
           }
         })
         .catch(err => console.log(err));
@@ -160,6 +184,7 @@ export const fetchUsersItems = () => {
 
 export const fetchSpecificItems = type => {
   return async dispatch => {
+    dispatch(returnSpecificItems("loading"));
     let currentUser = await firebase.auth().currentUser;
     if (currentUser) {
       let currentUserId = await firebase.auth().currentUser.uid;
@@ -175,7 +200,7 @@ export const fetchSpecificItems = type => {
           if (items.length > 0) {
             dispatch(returnSpecificItems(items));
           } else {
-            console.log("No items to display.");
+            dispatch(returnSpecificItems(null));
           }
         })
         .catch(err => console.log(err));

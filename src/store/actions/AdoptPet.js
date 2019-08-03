@@ -36,7 +36,7 @@ export const fetchStart = () => {
 
 export const fetchPets = () => {
   return dispatch => {
-    let petsRef = db.collection("pets");
+    let petsRef = db.collection("pets").where('ownerId', '==', 'DNE');
     petsRef
       .get()
       .then(querySnapshot => {
@@ -56,16 +56,17 @@ export const fetchUsersPets = () => {
     dispatch(fetchStart());
     if (firebase.auth().currentUser) {
       // if there is a user logged in
-      var currentUserId = await firebase.auth().currentUser.uid;
-      console.log(currentUserId);
-      var ownersRef = db.collection("owners");
-      let ownerQuery = ownersRef.where("ownerId", "==", `${currentUserId}`);
-      ownerQuery
+      let currentUserId = await firebase.auth().currentUser.uid;
+
+      let petsRef = db.collection("pets");
+      let petQuery = petsRef.where("ownerId", "==", currentUserId);
+      petQuery
         .get()
         .then(querySnapshot => {
           let usersPets = [];
           querySnapshot.forEach(doc => {
-            usersPets.push(doc.data().pets[0]);
+            console.log(doc.data());
+            usersPets.push({...doc.data()});
           });
           if (usersPets.length >= 1) {
             dispatch(returnUsersPets(usersPets));
@@ -84,28 +85,33 @@ export const assignPetToUser = petId => {
   return async dispatch => {
     var currentUserId = await firebase.auth().currentUser.uid;
     var petRef = db.collection("pets").doc(petId);
-    petRef
-      .get()
-      .then(doc => {
-        console.log(doc.data());
-        db.collection("owners")
-          .add({
-            ownerId: currentUserId,
-            pets: [
-              {
-                ...doc.data()
-              }
-            ]
-          })
-          .then(docRef =>
-            // delete pet from database
-            petRef
-              .delete()
-              .then(history.push("/my-pets"))
-              .catch(err => console.log(err))
-          )
-          .catch(err => console.log(err));
-      })
-      .catch(err => console.log(err));
+    petRef.set(
+      {
+        ownerId: currentUserId
+      },
+      { merge: true }
+    ).then(history.push("/my-pets")).catch(err => console.log(err));
+    // .get()
+    // .then(doc => {
+    //   console.log(doc.data());
+    //   db.collection("owners")
+    //     .add({
+    //       ownerId: currentUserId,
+    //       pets: [
+    //         {
+    //           ...doc.data()
+    //         }
+    //       ]
+    //     })
+    //     .then(docRef =>
+    //       // delete pet from database
+    //       petRef
+    //         .delete()
+    //         .then(history.push("/my-pets"))
+    //         .catch(err => console.log(err))
+    //     )
+    //     .catch(err => console.log(err));
+    // })
+    // .catch(err => console.log(err));
   };
 };

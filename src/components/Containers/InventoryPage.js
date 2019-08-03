@@ -5,6 +5,7 @@ import { connect } from "react-redux";
 import Card from "../Card";
 import Spinner from "../UI/Spinner/Spinner";
 import Modal from "../UI/Modal/Modal";
+import Bone from "../../assets/images/bone.jpg";
 
 import * as actions from "../../store/actions/index";
 
@@ -36,8 +37,9 @@ class InventoryPage extends Component {
   };
 
   render() {
-    let items = this.props.loading
-      ? () => {
+    let items = () => {
+      switch (this.props.usersItems) {
+        case "loading":
           return (
             <>
               <Spinner />
@@ -45,23 +47,24 @@ class InventoryPage extends Component {
               <Spinner />
             </>
           );
-        }
-      : () => {
-          if (!this.props.usersItems) {
-            return <h1>No Items Found</h1>;
-          } else {
-            return this.props.usersItems.map(item => (
-              <Card
-                key={item.id}
-                btnContent="Use"
-                btnClass="ui primary button"
-                description={item.description}
-                name={item.name}
-                btnClicked={() => this.viewItem(item.id)}
-              />
-            ));
-          }
-        };
+        case "empty":
+          return "No items to show";
+        default:
+          return this.props.usersItems.map(item => {
+            return (
+              <div className="item-box-use-item">
+                <img
+                  style={{ width: "100%", height: "auto" }}
+                  src={Bone}
+                  alt="bone"
+                />
+                <div className="item-name">{item.name}</div>
+              </div>
+            );
+          });
+      }
+    };
+
     return (
       <>
         <h1>My Items</h1>
@@ -98,4 +101,4 @@ const wrappedComponent = connect(
   mapDispatchToProps
 )(InventoryPage);
 
-export default requireAuth(withNavbar(wrappedComponent));
+export default withNavbar(wrappedComponent);

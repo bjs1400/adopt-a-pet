@@ -9,7 +9,12 @@ const PetBox = props => {
   return (
     <div className="my-pet-box">
       <div className="left-side">
-        <Card imgsrc={props.imgsrc} name={props.name} age={props.age} />
+        <Card
+          imgsrc={props.imgsrc}
+          name={props.name}
+          age={props.age}
+          classes="with-shadow"
+        />
         <div className="feed-play">
           <Button btnClass="ui green button" clicked={props.feed}>
             Feed
