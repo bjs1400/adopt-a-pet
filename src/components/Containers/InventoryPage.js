@@ -1,39 +1,41 @@
 import React, { Component } from "react";
 import withNavbar from "../hoc/withNavbar";
-import requireAuth from "../hoc/requireAuth";
+import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import Card from "../Card";
 import Spinner from "../UI/Spinner/Spinner";
+import Button from "../UI/Button";
 import Modal from "../UI/Modal/Modal";
 import Bone from "../../assets/images/bone.jpg";
+import Pup from "../../assets/images/pup.jpg";
 
 import * as actions from "../../store/actions/index";
 
 class InventoryPage extends Component {
   componentDidMount() {
     this.props.fetchUsersItems();
-    this.props.fetchUsersPets(); 
+    this.props.fetchUsersPets();
   }
 
   state = {
     show: false,
     shownItem: null,
-    zindex: null
+    zindex: -1
   };
 
   useItem = item => {
     this.setState({
       show: true,
-      shownItem: item,
-      zindex: 105
+      shownItem: { ...item },
+      zindex: 500
     });
   };
 
   cancelHandler = () => {
     this.setState({
       show: false,
-      zindex: 40,
-      shownItemId: null
+      zindex: -1,
+      shownItem: null
     });
   };
 
@@ -70,32 +72,35 @@ class InventoryPage extends Component {
       switch (this.props.usersPets) {
         case "loading":
           return <Spinner />;
-        case 'empty':
+        case "empty":
           return (
             <>
-            <h1>You have no pets to show!</h1>
-            <h2>Visit the <Link to="/adopt">Adoption Center</Link> to start adopting!</h2>
-            </> 
+              <h1>You have no pets to show!</h1>
+              <h2>
+                Visit the <Link to="/adopt">Adoption Center</Link> to start
+                adopting!
+              </h2>
+            </>
           );
         default:
-          return (
+          return this.state.shownItem ? (
             <>
               <h1>SELECT A PET BELOW TO USE THIS ITEM ON</h1>
               <div className="grid-container-use-item">
-                {this.props.usersPets.map(item => {
+                {this.props.usersPets.map(pet => {
                   return (
                     <div className="item-box-use-item">
                       <img
                         style={{ width: "100%", height: "auto" }}
-                        src={Bone}
-                        alt="bone"
+                        src={Pup}
+                        alt="Pup"
                       />
-                      <div className="item-name">{item.name}</div>
+                      <div className="item-name">{pet.name}</div>
                     </div>
                   );
                 })}
                 <div className="pet-box-use-item">
-                  <Card imgsrc={Pup} name={this.state.petName} />
+                  <Card imgsrc={Bone} name={this.state.shownItem.name} />
                 </div>
               </div>
               <Button
@@ -105,7 +110,7 @@ class InventoryPage extends Component {
                 CANCEL
               </Button>
             </>
-          );
+          ) : null;
       }
     };
 
@@ -117,7 +122,7 @@ class InventoryPage extends Component {
           modalClosed={this.cancelHandler}
           zindex={this.state.zindex}
         >
-          {this.state.shownItemId}
+          {useItem()}
         </Modal>
         <div style={{ marginTop: "5%" }} className="shop-container">
           {items()}
@@ -129,14 +134,15 @@ class InventoryPage extends Component {
 
 const mapDispatchToProps = dispatch => {
   return {
-    fetchUsersItems: () => dispatch(actions.fetchUsersItems())
+    fetchUsersItems: () => dispatch(actions.fetchUsersItems()),
+    fetchUsersPets: () => dispatch(actions.fetchUsersPets())
   };
 };
 
 const mapStateToProps = state => {
   return {
     usersItems: state.store.usersItems,
-    usersPets: ,
+    usersPets: state.adopt.usersPets,
     loading: state.store.loading
   };
 };

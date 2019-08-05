@@ -16,8 +16,13 @@ body {
   padding: 2% 5%;
 }
 
-h1, h2, h3, h4, h5, h6 {
-  font-family: 'Ranchers', cursive; 
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: "Ranchers", cursive;
 }
 
 .page-container {
@@ -32,15 +37,16 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .with-shadow {
-  box-shadow: 4px 6px 20px 2px rgba(0,0,0,1);
+  box-shadow: 4px 6px 20px 2px rgba(0, 0, 0, 1);
 }
 
 /******************
 **** UI COMPONENTS
 *******/
 /* CARD */
-.display-card, .card {
-  box-shadow: 0px 11px 8px 0px rgba(0,0,0,0.75);
+.display-card,
+.card {
+  box-shadow: 0px 11px 8px 0px rgba(0, 0, 0, 0.75);
 }
 
 /* SPINNER */
@@ -153,7 +159,7 @@ LAYOUT/GRID
 }
 
 .landing-container {
-font-family: 'Ranchers'; 
+  font-family: "Ranchers";
 }
 
 /**********
@@ -187,8 +193,8 @@ font-family: 'Ranchers';
 NAVIGATION
 */
 .nav-link {
-  font-size: large; 
-  font-weight: lighter; 
+  font-size: large;
+  font-weight: lighter;
   text-decoration: none;
   color: black;
   z-index: 499;
@@ -210,9 +216,9 @@ NAVIGATION
   align-items: center;  */
   padding: 1%;
   background-color: #f9d300;
-  box-shadow: 0px 11px 15px 0px rgba(0,0,0,0.75);
+  box-shadow: 0px 11px 15px 0px rgba(0, 0, 0, 0.75);
   /* box-shadow: 0px 3px 24px 0px rgba(0,0,0,1); */
-  margin-bottom: 20%; 
+  margin-bottom: 20%;
 }
 
 .navbar-main {
@@ -299,17 +305,17 @@ LANDING PAGE
 
 .display-card {
   z-index: 50;
-} 
+}
 
 .attribute-div {
   font-size: 20px;
-  font-weight: lighter;  
+  font-weight: lighter;
 }
 
 .attribute {
   margin-right: 10px;
   font-size: 30px;
-  font-weight: lighter; 
+  font-weight: lighter;
 }
 
 /* SHOW PET */
@@ -396,7 +402,7 @@ LANDING PAGE
   grid-column-end: 4;
   background-color: grey;
   display: grid;
-  grid-template-columns: repeat(3, 1fr); 
+  grid-template-columns: repeat(3, 1fr);
   grid-row-gap: 5%;
   grid-column-gap: 5%;
 }
@@ -416,23 +422,23 @@ LANDING PAGE
   grid-column-gap: 2px;
   grid-row-gap: 2px;
   width: 80%;
-  padding: 1%; 
+  padding: 1%;
   margin: 0 auto;
 }
 
 .grid-container-use-item .item-box-use-item {
   grid-column: span 1;
-  grid-row: span 1; 
+  grid-row: span 1;
   /* border: 2px solid black;  */
   padding: 2%;
-  box-shadow: 4px 6px 20px 2px rgba(0,0,0,1);
+  box-shadow: 4px 6px 20px 2px rgba(0, 0, 0, 1);
 }
 
 .grid-container-use-item .item-box-use-item:hover {
   cursor: pointer;
-  box-shadow: 2px 2px 5px 1px rgba(0,0,0,1);  
+  box-shadow: 2px 2px 5px 1px rgba(0, 0, 0, 1);
   transform: scale(1.2);
-  transition: all 0.4s; 
+  transition: all 0.4s;
 }
 
 .pet-box-use-item {
@@ -441,15 +447,14 @@ LANDING PAGE
   grid-row-end: 3;
   background-color: grey;
   width: 100%;
-  height: auto; 
+  height: auto;
 }
 
 .item-box-use-item {
-  overflow: hidden; 
+  overflow: hidden;
 }
 
 .item-box-use-item {
-  
 }
 
 /* PET BOX */
@@ -496,8 +501,9 @@ LANDING PAGE
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   grid-column-gap: 6%;
-  height: 1000px;
+  grid-row-gap: 12%;
   width: 100%;
+  margin-bottom: 8%;
 }
 
 .games-card {
@@ -506,7 +512,7 @@ LANDING PAGE
   background-color: grey;
   position: relative;
   border: 1px solid black;
-  box-shadow: 4px 6px 20px 2px rgba(0,0,0,1);
+  box-shadow: 4px 6px 20px 2px rgba(0, 0, 0, 1);
   /* box-shadow: 0px 11px 15px 0px rgba(0,0,0,0.75); */
   text-align: center;
 }
@@ -518,7 +524,7 @@ LANDING PAGE
 .gc-img-container {
   width: 100%;
   overflow: hidden;
-  max-height: 250px; 
+  max-height: 250px;
 }
 .games-card-label {
   border: 3px solid black;

@@ -18,7 +18,7 @@ class MyPets extends Component {
     this.props.fetchUsersItems();
     this.fetchRandomQuote();
   }
-  
+
   state = {
     zindex: -1,
     show: false,
@@ -61,49 +61,50 @@ class MyPets extends Component {
   fetchRandomQuote = () => {};
 
   render() {
-    let myPets = this.props.loadingS
-      ? () => (
-          <>
-            <Spinner />
-            <Spinner />
-            <Spinner />
-          </>
-        )
-      : () => {
-          if (!this.props.usersPets) {
+    let myPets = () => {
+      switch (this.props.usersPets) {
+        case "loading":
+          return (
+            <>
+              <Spinner />
+              <Spinner />
+              <Spinner />
+            </>
+          );
+        case "empty":
+          return (
+            <div
+              style={{
+                gridColumnStart: "1",
+                gridColumnEnd: "4"
+              }}
+            >
+              <h1>You don't have any pets yet. You must be lonely.</h1>
+              <h2>
+                Visit the <Link to="/adopt">Adoption Center</Link> to start
+                adopting!
+              </h2>
+            </div>
+          );
+        default:
+          return this.props.usersPets.map(pet => {
             return (
-              <div
-                style={{
-                  gridColumnStart: "1",
-                  gridColumnEnd: "4"
-                }}
-              >
-                <h1>You don't have any pets yet. You must be lonely.</h1>
-                <h2>
-                  Visit the <Link to="/adopt">Adoption Center</Link> to start
-                  adopting!
-                </h2>
-              </div>
+              <PetBox
+                key={pet.id}
+                name={pet.name}
+                age={pet.age}
+                imgsrc={Pup}
+                petQuote="Test Quote"
+                happiness={pet.happiness}
+                satiety={pet.satiety}
+                love={pet.love}
+                play={() => this.useItem(pet.name, pet.id, "toy")}
+                feed={() => this.useItem(pet.name, pet.id, "food")}
+              />
             );
-          } else {
-            return this.props.usersPets.map(pet => {
-              return (
-                <PetBox
-                  key={pet.id}
-                  name={pet.name}
-                  age={pet.age}
-                  imgsrc={Pup}
-                  petQuote="Test Quote"
-                  happiness={pet.happiness}
-                  satiety={pet.satiety}
-                  love={pet.love}
-                  play={() => this.useItem(pet.name, pet.id, "toy")}
-                  feed={() => this.useItem(pet.name, pet.id, "food")}
-                />
-              );
-            });
-          }
-        };
+          });
+      }
+    };
 
     let specificItems = () => {
       switch (this.props.specificItems) {
@@ -167,8 +168,6 @@ class MyPets extends Component {
           });
       }
     };
-
-
 
     return (
       <>
