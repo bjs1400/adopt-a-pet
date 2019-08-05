@@ -83,7 +83,11 @@ class PetShop extends Component {
   };
 
   purchaseHandler = () => {
-    this.props.purchaseItem(this.state.shownItem.id); // item.id
+    let res = window.confirm("Are you sure you want to purchase this item?");
+    if (res) {
+      this.props.purchaseItem(this.state.shownItem.id); // item.id
+    }
+    this.cancelHandler();
   };
 
   render() {

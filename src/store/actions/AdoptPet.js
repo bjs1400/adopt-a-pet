@@ -36,7 +36,7 @@ export const fetchStart = () => {
 
 export const fetchPets = () => {
   return dispatch => {
-    let petsRef = db.collection("pets").where('ownerId', '==', 'DNE');
+    let petsRef = db.collection("pets").where("ownerId", "==", "DNE");
     petsRef
       .get()
       .then(querySnapshot => {
@@ -66,12 +66,12 @@ export const fetchUsersPets = () => {
           let usersPets = [];
           querySnapshot.forEach(doc => {
             console.log(doc.data());
-            usersPets.push({...doc.data()});
+            usersPets.push({ ...doc.data() });
           });
           if (usersPets.length >= 1) {
             dispatch(returnUsersPets(usersPets));
           } else {
-            dispatch(returnUsersPets(null));
+            dispatch(returnUsersPets("empty"));
           }
         })
         .catch(err => console.log(err));
@@ -85,12 +85,15 @@ export const assignPetToUser = petId => {
   return async dispatch => {
     var currentUserId = await firebase.auth().currentUser.uid;
     var petRef = db.collection("pets").doc(petId);
-    petRef.set(
-      {
-        ownerId: currentUserId
-      },
-      { merge: true }
-    ).then(history.push("/my-pets")).catch(err => console.log(err));
+    petRef
+      .set(
+        {
+          ownerId: currentUserId
+        },
+        { merge: true }
+      )
+      .then(history.push("/my-pets"))
+      .catch(err => console.log(err));
     // .get()
     // .then(doc => {
     //   console.log(doc.data());

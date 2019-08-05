@@ -12,18 +12,19 @@ import * as actions from "../../store/actions/index";
 class InventoryPage extends Component {
   componentDidMount() {
     this.props.fetchUsersItems();
+    this.props.fetchUsersPets(); 
   }
 
   state = {
     show: false,
-    shownItemId: null,
+    shownItem: null,
     zindex: null
   };
 
-  viewItem = id => {
+  useItem = item => {
     this.setState({
       show: true,
-      shownItemId: id,
+      shownItem: item,
       zindex: 105
     });
   };
@@ -52,16 +53,59 @@ class InventoryPage extends Component {
         default:
           return this.props.usersItems.map(item => {
             return (
-              <div className="item-box-use-item">
-                <img
-                  style={{ width: "100%", height: "auto" }}
-                  src={Bone}
-                  alt="bone"
-                />
-                <div className="item-name">{item.name}</div>
-              </div>
+              <Card
+                btnClass="ui primary button"
+                btnContent="Use"
+                imgsrc={Bone}
+                name={item.name}
+                classes={{ width: "60%" }}
+                btnClicked={() => this.useItem({ ...item })}
+              />
             );
           });
+      }
+    };
+
+    let useItem = () => {
+      switch (this.props.usersPets) {
+        case "loading":
+          return <Spinner />;
+        case 'empty':
+          return (
+            <>
+            <h1>You have no pets to show!</h1>
+            <h2>Visit the <Link to="/adopt">Adoption Center</Link> to start adopting!</h2>
+            </> 
+          );
+        default:
+          return (
+            <>
+              <h1>SELECT A PET BELOW TO USE THIS ITEM ON</h1>
+              <div className="grid-container-use-item">
+                {this.props.usersPets.map(item => {
+                  return (
+                    <div className="item-box-use-item">
+                      <img
+                        style={{ width: "100%", height: "auto" }}
+                        src={Bone}
+                        alt="bone"
+                      />
+                      <div className="item-name">{item.name}</div>
+                    </div>
+                  );
+                })}
+                <div className="pet-box-use-item">
+                  <Card imgsrc={Pup} name={this.state.petName} />
+                </div>
+              </div>
+              <Button
+                clicked={this.cancelHandler}
+                btnClass="ui large red button"
+              >
+                CANCEL
+              </Button>
+            </>
+          );
       }
     };
 
@@ -92,6 +136,7 @@ const mapDispatchToProps = dispatch => {
 const mapStateToProps = state => {
   return {
     usersItems: state.store.usersItems,
+    usersPets: ,
     loading: state.store.loading
   };
 };

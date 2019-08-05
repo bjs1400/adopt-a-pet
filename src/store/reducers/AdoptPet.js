@@ -1,7 +1,7 @@
 const initialState = {
   step: 1,
   pets: [],
-  usersPets: null,
+  usersPets: "loading",
   loading: true
 };
 
@@ -24,7 +24,8 @@ const petReducer = (state = initialState, action) => {
     case "FETCH_START":
       return {
         ...state,
-        loading: true
+        loading: true,
+        usersPets: "loading"
       };
     case "RETURN_PETS":
       return {
