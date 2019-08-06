@@ -23,7 +23,7 @@ class InventoryPage extends Component {
     zindex: -1
   };
 
-  useItem = item => {
+  showItem = item => {
     this.setState({
       show: true,
       shownItem: { ...item },
@@ -61,7 +61,7 @@ class InventoryPage extends Component {
                 imgsrc={Bone}
                 name={item.name}
                 classes={{ width: "60%" }}
-                btnClicked={() => this.useItem({ ...item })}
+                btnClicked={() => this.showItem({ ...item })}
               />
             );
           });

@@ -379,12 +379,24 @@ LANDING PAGE
   text-align: right;
   font-size: 45px;
 }
-
-.buy-item-btn {
-  grid-row: 5 6;
-  grid-column: 2 3;
-  transform: translateY(-55%);
+.si-btn-container {
+  position: relative;
 }
+.buy-item-btn {
+  position: absolute;
+  top: 0;
+  left: 600px; 
+  width: 55%;
+  height: 90%; 
+} 
+.cancel-item-btn {
+  position: absolute;
+  top: 0;
+  left: 320px;
+  width: 55%;
+  height: 90%; 
+}
+
 /***************
 *** MY PETS
 **************/

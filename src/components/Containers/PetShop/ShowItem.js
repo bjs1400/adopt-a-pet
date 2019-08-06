@@ -16,18 +16,20 @@ const ShowItem = props => {
             {props.description}
           </div>
           <div className="item-cost-box">{props.price} Tokens</div>
-          <div>
-            <div />
-            <Button
-              clicked={props.purchase}
-              btnClass="ui green button buy-item-btn"
-            >
-              BUY NOW
-            </Button>
-            <Button clicked={props.cancel} btnClass="ui red button">
-              CANCEL
-            </Button>
-          </div>
+        </div>
+        <div class="si-btn-container">
+          <Button
+            clicked={props.purchase}
+            btnClass="ui green button buy-item-btn"
+          >
+            BUY NOW
+          </Button>
+          <Button
+            clicked={props.cancel}
+            btnClass="ui red button cancel-item-btn"
+          >
+            CANCEL
+          </Button>
         </div>
       </div>
     </div>
