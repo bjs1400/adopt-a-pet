@@ -2,6 +2,9 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import withNavbar from "../../../../hoc/withNavbar";
+import Rock from "../../../../../assets/images/game-rock.png";
+import Paper from "../../../../../assets/images/game-paper1.jpg";
+import Scissors from "../../../../../assets/images/game-scissors.png";
 
 import * as actions from "../../../../../store/actions/index";
 
@@ -92,7 +95,19 @@ class RockPaperScissors extends Component {
   render() {
     return (
       <div className="rps-main-container">
-        <h1 style={{ color: "blue" }}>ROCK, PAPER, SCISSORS</h1>
+        <h1
+          style={{
+            color: "blue",
+            textAlign: "center",
+            fontSize: "50px",
+            border: "1px dotted blue",
+            padding: "2%",
+            marginBottom: "2%"
+          }}
+        >
+          ROCK, PAPER, SCISSORS
+        </h1>
+        <h3>INSTRUCTIONS</h3>
         <h2>
           EVERY WIN EARNS YOU{" "}
           <span style={{ color: "gold" }}>10 TOKENS...</span>
@@ -100,7 +115,15 @@ class RockPaperScissors extends Component {
         <h3 style={{ color: "red" }}>
           BUT BE CAREFUL...LOSE &amp; YOU WILL BE DEDUCTED 5 TOKENS!
         </h3>
-        <h2>CHOOSE AN ITEM TO GET STARTED! </h2>
+        <h2
+          style={{
+            textAlign: "center",
+            fontSize: "50px",
+            margin: "3% auto"
+          }}
+        >
+          CHOOSE AN ITEM TO GET STARTED!{" "}
+        </h2>
         <Link to="/earn-tokens">BACK TO GAMES</Link>
         <div className="game-container">
           <div className="rps-container">
@@ -109,19 +132,30 @@ class RockPaperScissors extends Component {
               className="ui raised card rps-card rps-rock"
               onClick={() => this.setUsersChoice("rock")()}
             >
-              ROCK
+              <div className="image">
+                <img className="rps-img" src={Rock} alt="Rock" />
+              </div>
             </div>
             <div
               onClick={() => this.setUsersChoice("paper")()}
               className="ui raised card rps-card rps-paper"
             >
-              PAPER
+              <div className="image" style={{ overflow: "hidden" }}>
+                <img
+                  className="rps-img"
+                  style={{ overflow: "hidden" }}
+                  src={Paper}
+                  alt="Paper"
+                />
+              </div>
             </div>
             <div
               onClick={() => this.setUsersChoice("scissors")()}
               className="ui raised card rps-card rps-scissors"
             >
-              SCISSORS
+              <div className="image">
+                <img className="rps-img" src={Scissors} alt="Scissors" />
+              </div>
             </div>
           </div>
         </div>

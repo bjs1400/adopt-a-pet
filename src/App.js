@@ -23,6 +23,7 @@ class App extends Component {
   componentDidMount() {
     this.props.onCheckAuth();
     this.props.fetchTokens();
+    this.props.updatePetStats();
   }
 
   render() {
@@ -57,7 +58,8 @@ class App extends Component {
 const mapDispatchToProps = dispatch => {
   return {
     onCheckAuth: () => dispatch(actions.checkAuthState()),
-    fetchTokens: () => dispatch(actions.fetchTokens())
+    fetchTokens: () => dispatch(actions.fetchTokens()),
+    updatePetStats: () => dispatch(actions.updatePetStats())
   };
 };
 

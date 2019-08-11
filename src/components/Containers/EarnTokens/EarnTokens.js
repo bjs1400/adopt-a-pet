@@ -9,6 +9,7 @@ import tw from "../../../assets/images/12-tokens.png";
 import te from "../../../assets/images/28-tokens.png";
 import si from "../../../assets/images/60-tokens.png";
 import oh from "../../../assets/images/100-tokens.png";
+import questionMark from "../../../assets/images/question-mark.png";
 
 class EarnTokens extends Component {
   render() {
@@ -35,7 +36,11 @@ class EarnTokens extends Component {
             imgsrc={RPS}
             label="ROCK, PAPER, SCISSORS"
           />
-          <GamesCard />
+          <GamesCard
+            link="/earn-tokens/guessing-game"
+            imgsrc={questionMark}
+            label="GUESS THE NUMBER"
+          />
         </div>
         <h2
           style={{

@@ -1,5 +1,10 @@
 export { auth, signIn, logout, checkAuthState } from "./auth";
-export { fetchPets, assignPetToUser, fetchUsersPets } from "./AdoptPet";
+export {
+  fetchPets,
+  assignPetToUser,
+  fetchUsersPets,
+  updatePetStats
+} from "./AdoptPet";
 export {
   fetchInventory,
   fetchItem,

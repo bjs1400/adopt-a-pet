@@ -1,3 +1,5 @@
+import { React } from "react";
+import { Redirect } from "react-router-dom";
 import history from "../../history";
 import firebase from "../../config/firebaseConfig";
 const db = firebase.firestore();
@@ -117,38 +119,67 @@ export const fetchInventory = () => {
   };
 };
 
-export const purchaseItem = id => {
+export const purchaseItem = (id, price) => {
   return async dispatch => {
     // assign the item to the current user
     //delete it from the database
     dispatch(fetchStart());
+    let usersTokens = null;
     let currentUserId = await firebase.auth().currentUser.uid;
-    db.collection("store-inventory")
-      .where("id", "==", id)
+    let userRef = db.collection("users").doc(currentUserId);
+    let userDoc = await userRef.get();
+    usersTokens = userDoc.data().tokens;
+    console.log(usersTokens);
+    let newId = id.slice(1);
+    console.log(newId);
+    let itemRef = db.collection("store-inventory").doc(newId);
+    itemRef
       .get()
-      .then(querySnapshot => {
-        querySnapshot.forEach(doc => {
-          let priceOfItem = doc.data().price;
-          console.log(priceOfItem);
-          let itemRef = db.collection("store-inventory").doc(doc.id);
+      .then(doc => {
+        if (usersTokens >= price) {
           itemRef
             .update({
               ownerId: currentUserId
             })
             .then(() => {
               history.push("/inventory");
-              let userRef = db.collection("users").doc(currentUserId);
-              userRef.get().then(doc => {
-                let newTokens = doc.data().tokens - priceOfItem;
-                userRef.update(
-                  {
-                    tokens: newTokens
-                  }
-                );
+              let newTokens = usersTokens - price;
+              userRef.update({
+                tokens: newTokens
               });
             })
-            .catch(err => console.log(console.error()));
-        });
+            .catch(err => console.log("unable to update"));
+          //     .where("id", "==", id)
+          //     .get()
+          //     .then(querySnapshot => {
+          //       querySnapshot.forEach(doc => {
+          //         let priceOfItem = doc.data().price;
+          //         console.log(priceOfItem);
+          //         let itemRef = db.collection("store-inventory").doc(doc.id);
+          //         itemRef
+          //           .update({
+          //             ownerId: currentUserId
+          //           })
+          //           .then(() => {
+          //             history.push("/inventory");
+          //             let userRef = db.collection("users").doc(currentUserId);
+          //             userRef.get().then(doc => {
+          //               let newTokens = doc.data().tokens - priceOfItem;
+          //               userRef.update(
+          //                 {
+          //                   tokens: newTokens
+          //                 }
+          //               );
+          //             });
+          //           })
+          //           .catch(err => console.log(console.error()));
+          //       });
+          //     })
+          //     .catch(err => console.log(err));
+          // };
+        } else {
+          history.push("/access-denied");
+        }
       })
       .catch(err => console.log(err));
   };

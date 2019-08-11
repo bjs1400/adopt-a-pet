@@ -19,16 +19,16 @@ const ShowItem = props => {
         </div>
         <div class="si-btn-container">
           <Button
-            clicked={props.purchase}
-            btnClass="ui green button buy-item-btn"
-          >
-            BUY NOW
-          </Button>
-          <Button
             clicked={props.cancel}
             btnClass="ui red button cancel-item-btn"
           >
             CANCEL
+          </Button>
+          <Button
+            clicked={props.purchase}
+            btnClass="ui green button buy-item-btn"
+          >
+            BUY NOW
           </Button>
         </div>
       </div>

@@ -34,6 +34,23 @@ export const fetchStart = () => {
   };
 };
 
+export const updatePetStats = () => {
+  return dispatch => {
+    setTimeout(() => {
+      db.collection("pets")
+        .where("happiness", ">=", 5)
+        .get()
+        .then(querySnapshot => {
+          querySnapshot.forEach(doc => {
+            console.log("set time out fxn started");
+            console.log(`doc: ${doc}`);
+            console.log(`doc data: ${doc.data()}`);
+          });
+        });
+    },6 * 60 * 60 * 1000);
+  };
+};
+
 export const fetchPets = () => {
   return dispatch => {
     let petsRef = db.collection("pets").where("ownerId", "==", "DNE");

@@ -85,7 +85,10 @@ class PetShop extends Component {
   purchaseHandler = () => {
     let res = window.confirm("Are you sure you want to purchase this item?");
     if (res) {
-      this.props.purchaseItem(this.state.shownItem.id); // item.id
+      this.props.purchaseItem(
+        this.state.shownItem.id,
+        this.state.shownItem.price
+      ); // item.id
     }
     this.cancelHandler();
   };
@@ -177,7 +180,7 @@ const mapDispatchToProps = dispatch => {
   return {
     fetchItems: () => dispatch(actions.fetchInventory()),
     fetchItem: id => dispatch(actions.fetchItem(id)),
-    purchaseItem: id => dispatch(actions.purchaseItem(id))
+    purchaseItem: (id, price) => dispatch(actions.purchaseItem(id, price))
   };
 };
 
