@@ -60,7 +60,7 @@ class ShowPet extends Component {
   render() {
     return (
       <div className="show-pet-container">
-        <Card imgsrc={Pup} name={this.props.name} age={this.props.age} />
+        <Card imgsrc={this.props.imgsrc} name={this.props.name} age={this.props.age} />
         <div className="attribute-box">
           <div className="attributes" style={{ paddingBottom: "40px" }}>
             <h3 style={{ fontSize: "40px", marginBottom: "20px" }}>

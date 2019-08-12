@@ -1,6 +1,7 @@
 import history from "../../history";
 import firebase from "../../config/firebaseConfig";
 const db = firebase.firestore();
+const storage = firebase.storage();
 
 export const nextStep = () => {
   return {
@@ -47,7 +48,7 @@ export const updatePetStats = () => {
             console.log(`doc data: ${doc.data()}`);
           });
         });
-    },6 * 60 * 60 * 1000);
+    }, 6 * 60 * 60 * 1000);
   };
 };
 
@@ -59,6 +60,28 @@ export const fetchPets = () => {
       .then(querySnapshot => {
         let petsArray = [];
         querySnapshot.forEach(doc => {
+          console.log(doc.data().image);
+          // let path = doc.data().image.path;
+          // let reference = storage.ref(path); //path is a child path
+          // let image = doc.data().image.id;
+
+          // let imageRef = reference.child(image);
+
+          // imageRef
+          //   .getDownloadURL()
+          //   .then(url => {
+          //     console.log(url);
+          //   })
+          //   .catch(err => console.log(err));
+
+          //   reference
+          //   .getDownloadURL()
+          //   .then(url => {
+          //     console.log(url);
+          //   })
+          //   .catch(err => console.log(err));
+
+          console.log(doc.data());
           petsArray.push({ ...doc.data(), petId: doc.id });
           console.log(`doc id: ${doc.id}`);
         });

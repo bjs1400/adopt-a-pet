@@ -9,6 +9,7 @@ import ShowPet from "./ShowPet";
 import Spinner from "../../UI/Spinner/Spinner";
 import Pup from "../../../assets/images/pup.jpg";
 import * as actions from "../../../store/actions/index";
+import { nullLiteralTypeAnnotation } from "../../../../node_modules/@babel/types";
 class AdoptionCenter extends Component {
   componentDidMount() {
     this.props.fetchPets();
@@ -20,7 +21,8 @@ class AdoptionCenter extends Component {
     shownPet: {
       name: null,
       age: null,
-      desc: null
+      desc: null,
+      imgsrc: null
     },
     showAdoptionForm: false,
     currPetId: null
@@ -84,12 +86,12 @@ class AdoptionCenter extends Component {
     });
   };
 
-  viewPet = (id, name, age, desc) => {
+  viewPet = (id, name, age, desc, imgsrc) => {
     this.setState({
       currPetId: id,
       zindex: 500,
       show: true,
-      shownPet: { name, age, desc },
+      shownPet: { name, age, desc, imgsrc },
       showAdoptionForm: false
     }); // show our modal
   };
@@ -117,10 +119,9 @@ class AdoptionCenter extends Component {
               key={pet.id}
               btnContent="Choose Me!"
               btnClass="ui button primary"
-              description
-              imgsrc={Pup}
+              imgsrc={pet.imageURL ? pet.imageURL : Pup}
               btnClicked={() =>
-                this.viewPet(pet.id, pet.name, pet.age, pet.description)
+                this.viewPet(pet.id, pet.name, pet.age, pet.description, pet.imageURL)
               }
               name={pet.name}
               age={pet.age}
@@ -155,6 +156,7 @@ class AdoptionCenter extends Component {
         description={this.state.shownPet.desc}
         adoptContinue={() => this.adoptContinue(this.state.currPetId)}
         hidePet={this.cancelHandler}
+        imgsrc={this.state.shownPet.imgsrc}
       />
     );
 
