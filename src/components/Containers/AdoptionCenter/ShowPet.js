@@ -1,8 +1,8 @@
 // content to be render on modal in adoption center (view a specific pet)
 import React, { Component } from "react";
+import { Link } from "react-router-dom";
 import Card from "../../Card";
 import Button from "../../UI/Button";
-import Pup from "../../../assets/images/pup.jpg";
 
 class ShowPet extends Component {
   state = {
@@ -60,7 +60,11 @@ class ShowPet extends Component {
   render() {
     return (
       <div className="show-pet-container">
-        <Card imgsrc={this.props.imgsrc} name={this.props.name} age={this.props.age} />
+        <Card
+          imgsrc={this.props.imgsrc}
+          name={this.props.name}
+          age={this.props.age}
+        />
         <div className="attribute-box">
           <div className="attributes" style={{ paddingBottom: "40px" }}>
             <h3 style={{ fontSize: "40px", marginBottom: "20px" }}>
@@ -78,15 +82,27 @@ class ShowPet extends Component {
             </div>
           </div>
           <div className="buttons" style={{ marginTop: "5%" }}>
-            <Button
-              btnClass="big ui green button"
-              clicked={this.props.adoptContinue}
-            >
-              ADOPT
-            </Button>
-            <Button btnClass="big ui red button" clicked={this.props.hidePet}>
-              CANCEL
-            </Button>
+            {this.props.isAuthenticated ? (
+              <>
+                <Button
+                  btnClass="big ui green button"
+                  clicked={this.props.adoptContinue}
+                >
+                  ADOPT
+                </Button>
+                <Button
+                  btnClass="big ui red button"
+                  clicked={this.props.hidePet}
+                >
+                  CANCEL
+                </Button>
+              </>
+            ) : (
+              <h1>
+                <Link to="/login">Log In</Link> or{" "}
+                <Link to="signup">Sign Up</Link> to Begin Adopting
+              </h1>
+            )}
           </div>
         </div>
       </div>

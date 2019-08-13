@@ -464,9 +464,7 @@ LANDING PAGE
 
 .item-box-use-item {
   overflow: hidden;
-}
-
-.item-box-use-item {
+  height: auto; 
 }
 
 /* PET BOX */

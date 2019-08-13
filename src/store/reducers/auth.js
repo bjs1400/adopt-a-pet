@@ -5,7 +5,6 @@ const initialState = {
   errorMessage: null,
   result: "",
   currentUser: null,
-  loading: false,
   isAuthenticated: false,
   authRedirectPath: "/",
   tokens: null

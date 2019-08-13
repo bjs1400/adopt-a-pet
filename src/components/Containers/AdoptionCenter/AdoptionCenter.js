@@ -9,10 +9,12 @@ import ShowPet from "./ShowPet";
 import Spinner from "../../UI/Spinner/Spinner";
 import Pup from "../../../assets/images/pup.jpg";
 import * as actions from "../../../store/actions/index";
-import { nullLiteralTypeAnnotation } from "../../../../node_modules/@babel/types";
+
+
 class AdoptionCenter extends Component {
   componentDidMount() {
     this.props.fetchPets();
+    console.log(this.props.isAuthenticated);
   }
 
   state = {
@@ -121,7 +123,13 @@ class AdoptionCenter extends Component {
               btnClass="ui button primary"
               imgsrc={pet.imageURL ? pet.imageURL : Pup}
               btnClicked={() =>
-                this.viewPet(pet.id, pet.name, pet.age, pet.description, pet.imageURL)
+                this.viewPet(
+                  pet.id,
+                  pet.name,
+                  pet.age,
+                  pet.description,
+                  pet.imageURL
+                )
               }
               name={pet.name}
               age={pet.age}
@@ -157,6 +165,7 @@ class AdoptionCenter extends Component {
         adoptContinue={() => this.adoptContinue(this.state.currPetId)}
         hidePet={this.cancelHandler}
         imgsrc={this.state.shownPet.imgsrc}
+        isAuthenticated={this.props.isAuthenticated}
       />
     );
 
@@ -182,7 +191,7 @@ class AdoptionCenter extends Component {
 
 const mapStateToProps = state => {
   return {
-    isAuthenticated: state.auth.isAuthenticated,
+    isAuthenticated: state.auth.currentUser,
     pets: state.adopt.pets,
     loading: state.adopt.loading
   };

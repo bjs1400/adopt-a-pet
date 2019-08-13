@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import withNavbar from "../../hoc/withNavbar";
+import requireAuth from '../../hoc/requireAuth'; 
 import Card from "../../Card";
 import Bone from "../../../assets/images/bone.jpg";
 import Modal from "../../UI/Modal/Modal";
@@ -159,8 +160,8 @@ class PetShop extends Component {
           {displayItem}
         </Modal>
         <h1>PET SHOP</h1>
-        Welcome to the Pet Shop! Here, you can buy toys and food for your pet to
-        keep them happy!
+        <h2 style={{ marginBottom: '2%' }}>Welcome to the Pet Shop! Here, you can buy toys and food for your pet to
+        keep them happy!</h2>
         <div className="shop-container">{itemsForSale}</div>
       </>
     );
@@ -189,4 +190,4 @@ const wrappedComponent = connect(
   mapDispatchToProps
 )(PetShop);
 
-export default withNavbar(wrappedComponent);
+export default requireAuth(withNavbar(wrappedComponent));

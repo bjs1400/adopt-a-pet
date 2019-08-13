@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import withNavbar from "../hoc/withNavbar";
+import requireAuth from "../hoc/requireAuth";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import Card from "../Card";
@@ -37,6 +38,18 @@ class InventoryPage extends Component {
       zindex: -1,
       shownItem: null
     });
+  };
+
+  useItemOnPet = (itemId, petId, name, type) => {
+    let res = window.confirm(`Are you sure you want to use this item on ${name}?`); 
+
+    if (res) {
+      //use item on pet
+      this.props.useItemOnPet(itemId, petId, type);
+      alert("You used this item!");
+    }
+    this.cancelHandler();
+    }
   };
 
   render() {
@@ -89,10 +102,20 @@ class InventoryPage extends Component {
               <div className="grid-container-use-item">
                 {this.props.usersPets.map(pet => {
                   return (
-                    <div className="item-box-use-item">
+                    <div
+                      onClick={() =>
+                        this.useItemOnPet(
+                          this.state.shownItem.id,
+                          pet.id,
+                          pet.name,
+                          this.state.shownItem.type
+                        )
+                      }
+                      className="item-box-use-item"
+                    >
                       <img
                         style={{ width: "100%", height: "auto" }}
-                        src={Pup}
+                        src={pet.imgsrc}
                         alt="Pup"
                       />
                       <div className="item-name">{pet.name}</div>
@@ -135,7 +158,8 @@ class InventoryPage extends Component {
 const mapDispatchToProps = dispatch => {
   return {
     fetchUsersItems: () => dispatch(actions.fetchUsersItems()),
-    fetchUsersPets: () => dispatch(actions.fetchUsersPets())
+    fetchUsersPets: () => dispatch(actions.fetchUsersPets()),
+    useItemOnPet: (itemId, petId, type) => dispatch(actions.useItemOnPet(itemId, petId, type))
   };
 };
 
@@ -152,4 +176,4 @@ const wrappedComponent = connect(
   mapDispatchToProps
 )(InventoryPage);
 
-export default withNavbar(wrappedComponent);
+export default requireAuth(withNavbar(wrappedComponent));
