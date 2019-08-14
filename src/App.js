@@ -28,29 +28,31 @@ class App extends Component {
 
   render() {
     return (
-      <div class="container-main">
-        <Route path="/" exact component={LandingPage} />
-        <Route path="/adopt" component={AdoptionCenter} />
-        <ProtectedRoute path="/my-pets" component={MyPets} />
-        <Route path="/pet-shop" component={PetShop} />
-        <ProtectedRoute path="/inventory" component={InventoryPage} />
-        <Route path="/login" component={Login} />
-        <Route path="/signup" component={Register} />
-        <ProtectedRoute exact path="/earn-tokens" component={EarnTokens} />
-        <Route path="/home" component={HomePage} />
-        <ProtectedRoute path="/adopt-confirm" component={AdoptConfirm} />
-        <Route path="/access-denied" component={accessDenied} />
-        <ProtectedRoute
-          exact
-          path="/earn-tokens/tic-tac-toe"
-          component={TicTacToe}
-        />
-        <ProtectedRoute
-          exact
-          path="/earn-tokens/rock-paper-scissors"
-          component={RockPaperScissors}
-        />
-      </div>
+      <>
+        <Route exact path="/" component={LandingPage} />
+        <div class="container-main">
+          <Route path="/adopt" component={AdoptionCenter} />
+          <ProtectedRoute path="/my-pets" component={MyPets} />
+          <Route path="/pet-shop" component={PetShop} />
+          <ProtectedRoute path="/inventory" component={InventoryPage} />
+          <Route path="/login" component={Login} />
+          <Route path="/signup" component={Register} />
+          <ProtectedRoute exact path="/earn-tokens" component={EarnTokens} />
+          <Route path="/home" component={HomePage} />
+          <ProtectedRoute path="/adopt-confirm" component={AdoptConfirm} />
+          <Route path="/access-denied" component={accessDenied} />
+          <ProtectedRoute
+            exact
+            path="/earn-tokens/tic-tac-toe"
+            component={TicTacToe}
+          />
+          <ProtectedRoute
+            exact
+            path="/earn-tokens/rock-paper-scissors"
+            component={RockPaperScissors}
+          />
+        </div>
+      </>
     );
   }
 }

@@ -49,8 +49,7 @@ class InventoryPage extends Component {
       alert("You used this item!");
     }
     this.cancelHandler();
-    }
-  };
+    };
 
   render() {
     let items = () => {
